@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css\index.css">
+        
+
+        <!--  Google font: Montserrat -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <style>
+            img {padding-left: 40px};
+        </style>
+        <title>Login</title>
+
+    </head>
+
+
+    <body>
+        <div class="header">
+            <img src = "images\band_craft_small.png" alt = "Band Craft Logo" style ="float: left"/>
+        </div>
+
+        <div>
+            <form>
+                <table>
+                    <th><h2>Login</h2></th>
+                    <tr>
+                        <td><label for="userName" class="label_form">Email:</label></td>
+                        <td><input type="text" id="userName" name="userName" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Invalid email address"></td>      
+                    </tr>
+                    <tr>
+                        <td><label for="password" class="label_form">Password:</label></td>
+                        <td><input type="password" id="password1" name="password1"></td> 
+                    </tr>   
+                    <tr>
+                        <td></td>
+                        <td><a href="reg-member-1.html"><button type="button" id="submitButton">Next</button></a></td>
+                    </tr>     
+                </table>
+            </form>
+            
+         </div><br>
+
+        <script>
+            document.addEventListener(
+                'DOMContentLoaded', () => {
+                document.getElementById('submitButton').
+                    addEventListener('click', function () {
+                        alert('Login form submitted!');
+                    });
+            });
+        </script>
+
+        <img src="/images/pea-body-strumming.gif" alt="pea body strumming air guitar" width = "200px" height = "200px">
+
+    </body>
+
+    <footer>
+        <br><p>BandCraft.Copyright 2024. 
+        <a href="mailto:wendy.castellanos1@gmail.com">Author: Wendy Castellanos</a></p>
+    </footer>
+    
+</html>

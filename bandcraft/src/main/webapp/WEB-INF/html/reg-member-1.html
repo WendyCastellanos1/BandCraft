@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css\index.css">
+        
+
+        <!--  Google font: Montserrat -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <title>Profile - Part 1</title>
+    </head>
+
+
+    <body>
+        <div class="header">
+            <img src = "images\band_craft_small.png" alt = "Band Craft Logo" style ="float: left"/>
+        </div>
+        
+        <div class = "inputs-container">
+
+            <h2>Profile: Part 1</h2>
+
+            <form action="write_the_url_for_server_side_script_to_send_to_here" required>
+
+                <div>
+                    <p><h3>Name:</h3></p>
+                    <label for="firstName" class="label_form">First Name: </label>
+                    <input type="text" id="firstName" name="firstName" pattern="[a-zA-Z]+">
+                </div>
+
+                <div>
+                    <label for="lastName" class="label_form">Last Name: </label>
+                    <input type="text" id="lastName" name="lastName" pattern="[a-zA-Z]+>
+                </div>
+
+                <div>
+                    <label for="nickname" class="label_form">Nickname:</label>
+                    <input type="text" id="nickname" name="nickname">
+                </div>
+
+                <table>
+                    <th><h3>Communication:</h3></th>
+                    <tr>
+                        <td><label for="email" class="label_form">Primary Email:</label></td>
+                        <td><input type="text" id = "email" name = "email"  pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Invalid email address"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="emailAlt" class="label_form">Alternative Email:</label></td>
+                        <td><input type="text" id="emailAlt" name="emailAlt" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Invalid alternative email address"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="phoneCell" class="label_form">Cell Phone (text):</label></td>
+                        <td><input type="text" id="phoneCell" name="phoneCell"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="phoneAlt" class="label_form">Alternative Phone:</label></td>
+                        <td><input type="text" id="phoneAlt" name="phoneAlt"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><a href="reg-member-2.html"><button type="button" id="submitButton">Next</button></a></td>
+                    </tr>
+
+                    
+                     
+                </table>
+            </form>
+        
+        </div> 
+
+
+        <script>
+            document.addEventListener(
+                'DOMContentLoaded', () => {
+                document.getElementById('submitButton').
+                    addEventListener('click', function () {
+                        alert('Member Registration: Part 1 form submitted!');
+                    });
+            });
+        </script>
+
+    </body>
+
+    <footer>
+            <br><p>BandCraft. Copyright 2024. 
+            <a href="mailto:wendy.castellanos1@gmail.com">Author: Wendy Castellanos</a></p>
+    </footer>
+
+</html>

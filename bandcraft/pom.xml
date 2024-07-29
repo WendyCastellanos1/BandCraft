@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>bandcraft</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Band configuration project created with Spring Boot framework</description>
 	<url/>
 	<licenses>
 		<license/>

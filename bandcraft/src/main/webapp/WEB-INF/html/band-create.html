@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css\index.css">
+
+        <!--  Google font: Montserrat -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <title>Band Configuration</title>
+    </head>
+
+    <body>
+
+        <div class="header">
+            <a class="active" href="#home"> <img class="header" src="images\band_craft_small.png" alt="Logo" class="logo"/>  </a>
+        </div>
+
+        <div><p><h2>Choose the band members:</h2></p></div><br>
+
+        <form action="">
+
+            <section style = "display: flex">
+
+                <div class = "flex-container">
+                    
+                        <label for = "membersElectricGuitar_Lead">Electric Guitar (lead):  </label>
+                       
+                        <select name = "membersElectricGuitar" id="membersElectricGuitar_Lead">
+                            <option value="0">optional</option>
+                            <option value="1">Amy Cornfield | processor | chord charts | solos</option>
+                            <option value="2">Joaquin Rivera | processor | sight-reads | solos</option>
+                            <option value="3">Taylor Li | needs loaner | solos</option>
+                        </select>
+                </div>
+                
+                <div class = "flex-container">
+                    
+                        <label for="membersElectricGuitar_Rhythm">Electric Guitar (rhythm): </label>
+                        
+                        <select name = "membersElectricGuitar" id="membersElectricGuitar_Rhythm">
+                            <option value="0">optional</option>
+                            <option value="1">Amy Cornfield | processor | chord charts | solos</option>
+                            <option value="2">Joaquin Rivera | processor | sight-reads | solos</option>
+                            <option value="3">Taylor Li | needs loaner | solos</option>
+                        </select>
+                </div>
+                <br>
+
+                <div class = "flex-container">
+                 
+                        <label for="membersAcousticGuitar_1">Acoustic Guitar #1: </label>
+                        
+                        <select name = "membersAcousticGuitar" id="membersAcousticGuitar_1">
+                            <option value="0">optional</option>
+                            <option value="1">Joaquin Rivera | processor | sight-reads</option>
+                            <option value="2">Johnny Cash</option>
+                        </select>
+                </div>
+                <br>
+                <div class = "flex-container">
+                    
+                    <label for="membersAcousticGuitar_2">Acoustic Guitar #2: </label>
+                    <select name = "membersAcousticGuitar" id="membersAcousticGuitar_2">
+                        <option value="0">optional</option>
+                        <option value="1">Joaquin Rivera | processor | sight-reads</option>
+                        <option value="2">Taylor Li | needs loaner</option>
+                    </select>
+                </div>
+                <br>
+                <div class = "flex-container">
+                    <img src="images/bass_guitar.png" width = "40px" alt="bass guitar icon">
+                    <label for="membersBassGuitar_2">Bass Guitar: </label>
+                    
+                    <select name = "membersBassGuitar" id="membersBassGuitar_2">
+                        <option value="0">optional</option>
+                        <option value="1">Joaquin Rivera | sight-reads</option>
+                        <option value="2">Clark Samudio | needs loaner | chord charts</option>
+                    </select>
+                </div>
+            </section>
+            <section style = "display: flex"> 
+                <div class = "flex-container">
+                        <label for="membersKeyboard">Keyboards: </label>
+                        
+                        <select name = "membersKeyboard" id="membersKeyboard">
+                            <option value="0">optional</option>
+                            <option value="1">Xochitl Diaz | chord charts | sight-reads</option>
+                            <option value="2">Jen Epstein | chord charts | sight-reads</option>
+                        </select>
+                </div>
+                <br>
+                <div class = "flex-container">
+                        <label for="membersDrumSet">Drum Set: </label>
+                        
+                        <select name = "membersDrumSet" id="membersDrumSet">
+                            <option value="0">optional</option>
+                            <option value="1">Neil Peart | sight-reads</option>
+                            <option value="2">Valentina Smith | sight-reads</option>
+                        </select>
+                </div>
+            </section>
+
+            <section style = "display: flex">
+                <div class = "flex-container">
+                        <label for="membersLeadVocals_1">Lead vocals #1: </label>
+                        <select name = "membersDrumSet" id="membersDrumSet">
+                            <option value="0">optional</option>
+                            <option value="1">Ricky Castillo</option>
+                            <option value="2">Geddy Lee| sight-reads</option>
+                            <option value="3">Rick Emmett | sight-reads</option>
+                            <option value="4">Gabriela Duran</option>
+                            <option value="5">Michone Walker | sight-reads</option>
+                            <option value="6">Leslie Adame</option>
+                        <select name = "membersLeadVocals_1" id="membersLeadVocals_1"></select>
+                </div>
+                <br>
+                <div class = "flex-container">
+                        <label for="membersLeadVocals_2">Lead vocals #2: </label>
+                        
+                        <select name = "membersLeadVocals_2" id="membersLeadVocals_2">
+                            <option value="0">optional</option>
+                            <option value="2">Gabriela Duran</option>
+                            <option value="3">Michone Walker | sight-reads</option>
+                            <option value="2">Leslie Adame</option>
+                        </select>
+                </div>
+                <br>
+                <div class = "flex-container">
+                        <label for="membersLeadVocals_3">Lead vocals #3: </label>
+                        
+                        <select name = "membersLeadVocals_3" id="membersLeadVocals_3">
+                            <option value="0">optional</option>
+                            <option value="1">Gabriela Duran</option>
+                            <option value="2">Michone Walker | sight-reads</option>
+                            <option value="">Leslie Adame</option>
+                        </select>
+                </div>
+                <br>
+                <div class = "flex-container">
+                    <div>
+                        <label for="membersHarmonyVocals_1">Harmony vocals #1: </label>
+                        
+                        <select name = "membersHarmonyVocals_1" id="membersHarmonyVocals_1"></select>
+                    </div>
+                </div>
+                <br>
+                <div class = "flex-container">
+                    
+                        <label for="membersHarmonyVocals_2">Harmony vocals #2: </label>
+                        
+                        <select name = "membersHarmonyVocals_2" id="membersHarmonyVocals_2"></select>
+                
+                </div>
+            </section>
+            <section style = "display: flex">
+                <div class = "flex-container">
+                    
+                        <img src="images/synthesizer.png" width = "40px" alt="mixer soundboard">
+                        <label for="membersSound">Sound Person (mixer): </label>
+                       
+                        <select name = "membersSound" id="membersSound"></select>
+                       
+                </div>
+                <br>
+                <div class = "flex-container">
+                    
+                        <label for="membersRoadie">Roadie (set up, tuning): </label>
+                        <br>
+                        <select name = "membersRoadie" id="membersRoadie">
+                            <option value="0">optional</option>
+                        </select>
+                    
+                </div>
+                <br>
+                <div class = "flex-container">
+                    
+                        <label for="membersArrangement">Music Arrangement (build sets): </label>
+                        <br>
+                        <select name = "membersArrangement" id="membersArrangement">
+                            <option value="0"> <option value="">optional</option></option>
+                        </select>
+                    
+                </div>
+            </section>
+       
+        </form>   
+    </body>
+
+</html>

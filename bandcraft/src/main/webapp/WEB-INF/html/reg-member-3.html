@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css\index.css">
+
+         <!--  Google font: Montserrat -->
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+ 
+        <title>Profile: Part 3</title>
+    </head>
+
+    <body>
+        <div class="header">
+            <a class="active" href="#home"> <img class="header" src="images\band_craft_small.png" alt="Logo" class="logo"/>  </a>
+        </div>
+
+        <div><h2>Profile: Part 3</h2></div>
+        <div>
+            <form>    
+                <div class = "inputs-container">
+                    <p><h3>My favorite talents: </h3></p>
+                    
+                    <div>
+                            <input type="checkbox" id="keyboard" name="keyboard" value="keyboard">
+                            <label for="keyboard">Keyboard</label><br>
+
+                            <input type="checkbox" id="electricGuitar" name="electricGuitar" value="electricGuitar">
+                            <label for="electricGuitar">Electric Guitar</label><br>
+
+                            <input type="checkbox" id="acousticGuitar" name="acousticGuitar" value="acousticGuitar">
+                            <label for="acousticGuitar">Acoustic Guitar</label><br>
+
+                            <input type="checkbox" id="bassGuitar" name="bassGuitar" value="bassGuitar">
+                            <label for="bassGuitar">Bass Guitar</label><br>
+
+                            <input type="checkbox" id="drumSet" name="drumSet" value="drumSet">
+                            <label for="drumSet">Drum Set</label><br>
+
+                            <input type="checkbox" id="leadVocals" name="leadVocals" value="leadVocals">
+                            <label for="leadVocals">Lead Vocals</label><br>
+
+                            <input type="checkbox" id="harmonyVocals" name="harmonyVocals" value="harmonyVocals">
+                            <label for="harmonyVocals">Harmony Vocals</label><br>
+
+                            <input type="checkbox" id="soundSystem" name="soundSystem" value="soundSystem">
+                            <label for="soundSystem">Sound System (run the soundboard)</label><br>
+
+                            <input type="checkbox" id="roadie" name="roadie" value="roadie">
+                            <label for="roadie">Roadie (set-up, tune instruments, etc.)</label><br>
+
+                            <input type="checkbox" id="setArrangement" name="setArrangement" value="setArrangement">
+                            <label for="setArrangement">Musical Set Arrangement (transpose, arrange, etc.)</label><br>
+                        
+                    </div><br><br>
+
+                    <div><a href="reg-member-4.html"><button type="button" id="submitButton">Next</button></a></div>
+                </div>
+            </form>
+            
+            <video width="320" height="240"  controls autoplay muted  loop>
+                <source src="/videos/female_drummer_sings.mp4" type="video/mp4" >
+            </video>
+
+        </div>
+
+        <script>
+            document.addEventListener(
+                'DOMContentLoaded', () => {
+                document.getElementById('submitButton').
+                    addEventListener('click', function () {
+                        alert('Member Registration: Part 3 form submitted!!');
+                    });
+            });
+        </script>
+
+    </body>
+    <footer>
+        <br><p>Copyright 2024. 
+        <a href="mailto:wendy.castellanos1@gmail.com">Author: Wendy Castellanos</a></p>
+    </footer>
+
+
+</html>

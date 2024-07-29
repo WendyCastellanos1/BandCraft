@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css\index.css">
+
+         <!--  Google font: Montserrat -->
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+ 
+        <title>Profile: Part 4</title>
+    </head>
+
+
+    <body>
+        <div class="header">
+            <a class="active" href="#home"> <img class="header" src="images\band_craft_small.png" alt="Logo" class="logo"/>  </a>
+        </div>
+
+
+        <div><h2>Profile: Part 4</h2></div>
+        <div>
+            <form>    
+                <div class = "inputs-container">
+
+                        <p><h3>More about my talent in  *Electric Guitar* </h3></p>
+                            <input type="checkbox"canImprov id="canImprov" name="canImprov" value="canImprov">
+                            <label for="canImprov">I can improvise (solo) / play solos</label><br>
+          
+                            <input type="checkbox" id="readsChordCharts" name="readsChordCharts" value="readsChordCharts">
+                            <label for="readsChordCharts">I can read chord charts (if applicable)</label><br>
+
+                            <input type="checkbox" id="sightReadsThisTalent" name="sightReadsThisTalent" value="sightReadsThisTalent">
+                            <label for="sightReadsThisTalent">I can sight-read (classical notation) for this instrument</label><br>
+
+                            <input type="checkbox" id="hasOwnEquipment" name="hasOwnEquipment" value="hasOwnEquipment">
+                            <label for="hasOwnEquipment">I have my own equipment</label><br>
+
+                            <input type="checkbox" id="needsLoanerInstrument" name="needsLoanerInstrument" value="needsLoanerInstrument">
+                            <label for="needsLoanerInstrument">I need a loaner instrument</label><br>
+
+                            <input type="checkbox" id="hasProcessor" name="hasProcessor" value="hasProcessor">
+                            <label for="hasProcessor">I use a processor/effects device(s).</label><br>
+
+                            <label for="processorComments"><i>Describe equipment:</i></label><br>
+                            <input type="text" id = "processorComments" name="processorComments" value="">
+
+                            <table>
+                                <th><h4>Key Preferences (Optional)</h4></th>
+                                <tr>
+                                    <td><label for="key1Preferred">Favorite Key #1: </label></td>
+                                    <td><select id="key1Preferred" name="key1Preferred">
+                                            <option value="N">-</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="key2Preferred">Favorite Key #2: </label></td>
+                                    <td><select id="key2Preferred" name="key2Preferred">
+                                            <option value="N">-</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><label for="key1Harmony">Harmony Key #1: </label></td>
+                                    <td><select id="key1Harmony" name="key1Harmony">
+                                        <option value="N">-</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                        <option value="F">F</option>
+                                        <option value="G">G</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><label for="key2Harmony">Harmony Key #2:</label></td>
+                                    <td>
+                                        <select id="key2Harmony" name="key2Harmony">
+                                            <option value="N">-</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><label for="key1Avoid">Avoid Key #1: </label></td>
+                                    <td><select id="key1Avoid" name="key1Avoid">
+                                            <option value="N">-</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="key2Avoid">Avoid Key #2: </label></td>
+                                    <td><select id="key2Avoid" name="key2Avoid">
+                                            <option value="N">-</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                            <option value="G">G</option>
+                                        </select>
+                                    </td>           
+                                </tr>     
+                            </table>
+                    </div><br><br>
+
+                    <div><button type="button" id="submitButton">Next</button></div>
+                </div>
+            </form>
+            <script>
+                document.addEventListener(
+                    'DOMContentLoaded', () => {
+                    document.getElementById('submitButton').
+                        addEventListener('click', function () {
+                            alert('Member Registration: Part 4 form submitted!');
+                        });
+                });
+            </script>
+        </div>
+    </body>
+
+    <footer>
+        <br><p>Copyright 2024. 
+        <a href="mailto:wendy.castellanos1@gmail.com">Author: Wendy Castellanos</a></p>
+    </footer>
+
+</html>

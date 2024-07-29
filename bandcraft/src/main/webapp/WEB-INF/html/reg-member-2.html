@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css\index.css">
+
+         <!--  Google font: Montserrat -->
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+ 
+        <title>Profile: Part 2</title>
+    </head>
+
+
+    <body>
+
+        <div class="header">
+            <a class="active" href="#home"> <img class="header" src="images\band_craft_small.png" alt="Logo" class="logo"/>  </a>
+        </div>
+    
+        <div><h2>Profile: Part 2</h2></div>
+
+        <form>    
+
+            <div class = "inputs-container">
+                <p><h3>Generational saavy is valued.</h3></p>
+
+                <label for="generation" class="label_form">Birth Generation:</label>
+
+                <select name="generation" id="generation">
+                    <option value="ns">Select one...</option>
+                    <option value="a">Gen Alpha</option>
+                    <option value="z">Gen Z</option>
+                    <option value="m">Milennial</option>
+                    <option value="x">Gen X</option>
+                    <option value="b">Baby Boomer</option>
+                    <option value="s">Silent Generation</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <p><h3>Some locations could be gender-restricted.</h3></p>
+
+                <label for="gender" class="label_form">Gender:</label>
+            
+                <select name="gender" id="gender">
+                    <option value="ns">Select one...</option>
+                    <option value="f">Female</option>>
+                    <option value="m">Male</option>
+                    <option value="o">Other</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="genderComment" class="label_form">Gender Comment:</label>
+                <input type="text" id="genderComment" name="genderComment"> 
+            </div>
+            <br>
+            <div><h3>Can you communicate in languages other than English?</h3>
+
+                <input type="checkbox" id="speaksSpanish" name="speaksSpanish" value="speaksSpanish">
+                <label for="speaksSpanish">Spanish</label>
+
+                <input type="checkbox"  id="speaksPortuguese" name="speaksPortuguese" value="speaksPortuguese">
+                <label for="speaksPortuguese">Portuguese</label>
+                
+                <input type="checkbox"  id="speaksPortuguese" name="speaksOther" value ="speaksOther">
+                <label for="speaksOther">Other Language(s)</label>
+            </div>
+            <div>
+                <label for="speaksOtherComment" class="label_form">Comment (optional):</label>
+                <input type="textarea" maxlength = "1000" name="speaksOtherComment">
+            </div>
+            <br>
+            <p><h3>You are unique!</h3></p>
+            <div>
+                <label for="bio" class="label_form">Tell us about yourself (bio): </label><br>
+                <input type = "textarea" maxlength = "1000" rows = "4" cols = "40"  name = "bio">   </textarea><br>
+            </div>
+            <br>
+            <div>
+                <label for="profilePhoto" class="label_form">Upload a photo for your profile</label><br>
+                <input type="file" name="profilePhoto" accept="image/*">
+            </div>
+            <br>
+            <div>
+                <label for="socialMediaUrl" class="label_form"></label>Link to your public-facing social media account</label><br>
+                <input type="text" id="socialMediaUrl" name="socialMediaUrl">
+            </div>
+            <br><br>
+            <div><a href="reg-member-3.html"><button type="button" id="submitButton">Next</button></a></div>
+        
+        </form>
+
+        
+
+        <script>
+            document.addEventListener(
+                    'DOMContentLoaded', () => {
+                document.getElementById('submitButton').
+                    addEventListener('click', function () {
+                        alert('Member Registration: Part 2 form submitted!');
+                    });
+            });
+        </script>
+        
+    </body>
+
+    <footer>
+        <br><p>Copyright 2024. 
+        <a href="mailto:wendy.castellanos1@gmail.com">Author: Wendy Castellanos</a></p>
+    </footer>
+
+</html>
