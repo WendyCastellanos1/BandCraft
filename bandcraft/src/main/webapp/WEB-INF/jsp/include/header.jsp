@@ -1,3 +1,5 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -69,15 +71,29 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/account/create-account">Create Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/account/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/account/logout">Logout</a>
-                </li>
+
+                <sec:authorize access="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/create-account">Create Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/login">Login</a>
+                    </li>
+                </sec:authorize>
+
+                <sec:authorize access="isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/logout">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link"><sec:authentication property="name"/></span>
+                    </li>
+                    <sec:authorize access="hasAnyAuthority('ADMIN')">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/dashboard">Admin Dashboard</a>
+                        </li>
+                    </sec:authorize>
+                </sec:authorize>
 
             </ul>
         </div>
