@@ -2,6 +2,7 @@ package com.baffintech.bandcraft.database.entity;
 
 // This class represents a look-up value table for talents that people can bring to a band
 import jakarta.persistence.*;   // Jakarta Persistence Query Language
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.util.Date;
 import java.util.List;
@@ -23,9 +24,9 @@ public class Talent {
     @Column(name = "id")
     private Integer id;
 
-    //FK        TODO:  Verify that this is correct
+    //FK        TODO:  Is this correct?
     @ToString.Exclude
-    @OneToMany(mappedBy = "talent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MemberTalent> memberTalents;
 
     @Column(name = "name")          // required
@@ -40,21 +41,21 @@ public class Talent {
     @Column(name = "url_photo2")    // optional; defaults to NULL in db
     private String urlPhoto2;
 
-    @Column(name = "is_active")     // required
-    private Boolean isActive;       // defaults to null in the db
+//    @Column(name = "is_active")     // required
+//    @NotNull
+//    private Boolean isActive;       // defaults to null in the db
 
-    // TODO: format to get datetime
-    //date_created
     @Column(name = "date_created")  // required
-    private Date dateCreated;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCreated;       // TODO: format to get datetime
 
-    // TODO: format to get datetime
+
     @Column(name = "date_updated")   // defaults to NULL in db if not sent, e.g. not an update
-    private Date dateUpdated;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateUpdated;        // TODO: format to get datetime
 
-   // TODO FK to user_id or member_id
-    // last_updated_id
-   @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update
-   private Date lastUpdatedId;
+
+   @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update    // TODO FK to logged in user
+   private Integer lastUpdatedId;
 
 }

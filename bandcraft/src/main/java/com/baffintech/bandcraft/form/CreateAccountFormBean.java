@@ -7,6 +7,8 @@ import lombok.*;
 @Setter
 public class CreateAccountFormBean {
 
+    private Integer id;
+
     @NotEmpty
     private String email;
 

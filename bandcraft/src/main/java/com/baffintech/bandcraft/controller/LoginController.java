@@ -1,6 +1,7 @@
 package com.baffintech.bandcraft.controller;
 
 import com.baffintech.bandcraft.database.dao.UserDAO;
+import com.baffintech.bandcraft.database.entity.User;
 import com.baffintech.bandcraft.form.CreateAccountFormBean;
 import com.baffintech.bandcraft.service.UserService;
 import jakarta.validation.Valid;
@@ -22,10 +23,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
         @Autowired
-        UserDAO userDAO;
+        private UserDAO userDAO;
 
         @Autowired
-        UserService userService;
+        private UserService userService;
+
+        @GetMapping("/login")           // just displaying our login page, could just do the 'return a String' approach here
+        public ModelAndView doLogin() {
+            ModelAndView response = new ModelAndView("auth/login");
+
+            return response;
+        }
 
         @GetMapping("/create-account")
         public ModelAndView createAccount() {
@@ -38,8 +46,16 @@ public class LoginController {
         public ModelAndView createAccountSubmit(@Valid CreateAccountFormBean form, BindingResult bindingResult) {
             ModelAndView response = new ModelAndView("auth/create-account");
 
-            // hw: check to make sure the email does not already exist
-            // this is a great case for the custom annotation that we made
+            // check to make sure the email does not already exist, but ALSO check to see if its a create
+            // using my custom annotation
+            // when doing a manual check in the controller, we want this before the binding result.hasErrors check so that it will fall into that block of code
+            if(form.getId() == null) {      // if this is a create:
+                User u = userDAO.findByEmailIgnoreCase(form.getEmail());
+
+                if ( u != null){
+                    bindingResult.rejectValue("email", "email", "This email is already in use. Manual check.");
+                }
+            }
 
             if (bindingResult.hasErrors()) {
                 for (ObjectError error : bindingResult.getAllErrors()) {
@@ -55,10 +71,5 @@ public class LoginController {
             return response;
         }
 
-        @GetMapping("/login")
-        public ModelAndView doLogin() {
-            ModelAndView response = new ModelAndView("auth/login");
 
-            return response;
-        }
     }

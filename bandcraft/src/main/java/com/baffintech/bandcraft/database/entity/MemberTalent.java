@@ -7,6 +7,8 @@ package com.baffintech.bandcraft.database.entity;
 import jakarta.persistence.*;   // Jakarta Persistence Query Language
 import lombok.*;
 import org.example.Band_Craft.Enums;
+
+import java.util.Date;
 import java.util.List;
 
 //lombok does the getters and setters
@@ -30,54 +32,63 @@ public class MemberTalent {
     private Integer memberId;
 
     // TODO: Make FK
-    @Column(name = "talent_id")                         // required
+    @Column(name = "talent_id")                           // required
     private Integer talentId;
 
-    @Column(name = "preference_ranking")                // required  (start it at 1, or don't, but consider...)
-    private Integer preferenceRanking;
+    @Column(name = "preference_ranking")                  // required  (start it at 1, or don't, but consider...)
+    private Short preferenceRanking;                    // TODO use a smaller int, but make it work with db
 
-    @Column(name = "can_improv")
-    private Boolean canImprov;                          // optional
+//    @Column(name = "can_improv")
+//    private Boolean canImprov;                          // optional
+//
+//    @Column(name = "reads_chord_charts")
+//    private Boolean readsChordCharts;                   // optional
+//
+//    @Column(name = "sight_reads_this_talent")
+//    private Boolean sightReadsThisTalent;                // optional
 
-    @Column(name = "reads_chord_charts")
-    private Boolean readsChordCharts;                   // optional
+//    @Column(name = "key1_preferred")
+//    @Enumerated(EnumType.STRING)
+//    private Enums.MusicalKeys key1Preferred;             // optional
+//
+//    @Column(name = "key2_preferred")
+//    @Enumerated(EnumType.STRING)
+//    private Enums.MusicalKeys key2Preferred;            // optional
+//
+//    @Column(name = "key1_harmony")
+//    @Enumerated(EnumType.STRING)
+//    private Enums.MusicalKeys key1Harmony;
+//
+//    @Column(name = "key2_harmony")                      // optional
+//    @Enumerated(EnumType.STRING)
+//    private Enums.MusicalKeys key2Harmony;
+//
+//    @Column(name = "key1_avoid")
+//    @Enumerated(EnumType.STRING)
+//    private Enums.MusicalKeys key1Avoid;                  // optional
+//
+//    @Column(name = "key2_avoid")
+//    @Enumerated(EnumType.STRING)
+//    private Enums.MusicalKeys key2Avoid;                  // optional
 
-    @Column(name = "sight_reads_this_talent")
-    private Boolean sightReadsThisTalent;                   // optional
+//    @Column(name = "has_processor")
+//    private Boolean hasProcessor;                       // optional
+//
+//    @Column(name = "processor_comments")
+//    private String processorComments;                   // optional, default is NULL in db
+//
+//    @Column(name = "needs_loaner_instrument")
+//    private Boolean needsLoanerInstrument;              // optional
 
-    @Column(name = "key1_preferred")
-    @Enumerated(EnumType.STRING)
-    private Enums.MusicalKeys key1Preferred;    // optional
+    @Column(name = "date_created")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCreated;
 
-    @Column(name = "key2_preferred")
-    @Enumerated(EnumType.STRING)
-    private Enums.MusicalKeys key2Preferred;    // optional
+    @Column(name = "date_updated")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateUpdated;
 
-    @Column(name = "key1_harmony")
-    @Enumerated(EnumType.STRING)
-    private Enums.MusicalKeys key1Harmony;
+    @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update    // TODO FK to logged in user
+    private Integer lastUpdatedId;
 
-    @Column(name = "key2_harmony")                      // optional
-    @Enumerated(EnumType.STRING)
-    private Enums.MusicalKeys key2Harmony;
-
-    @Column(name = "key1_avoid")
-    @Enumerated(EnumType.STRING)
-    private Enums.MusicalKeys key1Avoid;         // optional
-
-    @Column(name = "key2_avoid")
-    @Enumerated(EnumType.STRING)
-    private Enums.MusicalKeys key2Avoid;        // optional
-
-    @Column(name = "has_processor")
-    private Boolean hasProcessor;                       // optional
-
-    @Column(name = "processor_comments")
-    private String processorComments;                   // optional, default is NULL in db
-
-    @Column(name = "has_own_equipment")
-    private Boolean hasOwnEquipment;
-
-    @Column(name = "needs_loaner_instrument")
-    private Boolean needsLoanerInstrument;              // optional
 }
