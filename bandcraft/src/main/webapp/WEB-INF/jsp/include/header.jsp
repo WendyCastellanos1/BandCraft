@@ -30,15 +30,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/account/create-account">Create Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/account/login">Login</a>
-                </li>
+
+
                 <li class="nav-item">
                     <a class="nav-link" href="/member/search">Member Search</a>
                 </li>
@@ -58,7 +55,7 @@
                     <a class="nav-link" href="/band/list">Band List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/member/detail">My Summary</a>
+                    <a class="nav-link" href="/member/detail">Member Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/event/create">Create Event</a>
@@ -67,11 +64,21 @@
                     <a class="nav-link" href="/event/list">Event List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/event/search">Order Search</a>
+                    <a class="nav-link" href="/event/search">Event Search</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/account/create-account">Create Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/account/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/account/logout">Logout</a>
+                </li>
+
             </ul>
         </div>
     </div>

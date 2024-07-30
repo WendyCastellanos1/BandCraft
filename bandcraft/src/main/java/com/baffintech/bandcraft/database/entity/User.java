@@ -1,6 +1,7 @@
 package com.baffintech.bandcraft.database.entity;
 
 import jakarta.persistence.*;   // Jakarta Persistence Query Language
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.util.Date;
 
@@ -21,10 +22,11 @@ public class User {
     private Integer id;
 
     @Column(name = "email")
+    @NotNull
     private String email;
 
-    // TODO encryption
     @Column(name = "password")
+    @NotNull
     private String password;
 
 //    @Column(name = "is_admin")
