@@ -3,6 +3,7 @@ package com.baffintech.bandcraft.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Setter
@@ -27,7 +28,7 @@ public class UserRole {
 
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private Instant createDate;
 
 //    @Column(name = "date_created")
 //    @Temporal(TemporalType.TIMESTAMP)

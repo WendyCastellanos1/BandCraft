@@ -31,7 +31,7 @@ public class UserService {
         String encryptedPassword = passwordEncoder.encode(form.getPassword());
         user.setPassword(encryptedPassword);
 
-        user.setDateCreated(new Date());
+        user.setDateCreated(new Date().toInstant());
 
         // save the user to the database
         userDAO.save(user);

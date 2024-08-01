@@ -3,7 +3,7 @@
 <jsp:include page="../include/header.jsp" />
 
 <!-- a page header -->
-<section style="background-color:gray">
+<section style="background-color:aquamarine">
     <div class="container">
         <div class="row pt-5 pb-5">
             <h1 class="text-center">Login</h1>
@@ -14,6 +14,14 @@
 
 <section>
     <div class="container">
+        <c:if test="${param['error'] eq ''}">
+            <div class="row pt-5 justify-content-center">
+                <div class="col-6">
+                    <div class="alert alert-danger" role="alert">Invalid Username or Password</div>
+                </div>
+            </div>
+        </c:if>
+
         <div class="row pt-5 ">
             <div class="col-12">
                 <form action="/account/loginProcessingURL" method="post">

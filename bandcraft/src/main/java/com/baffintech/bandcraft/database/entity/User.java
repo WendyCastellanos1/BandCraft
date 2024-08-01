@@ -3,6 +3,8 @@ package com.baffintech.bandcraft.database.entity;
 import jakarta.persistence.*;   // Jakarta Persistence Query Language
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.time.Instant;
 import java.util.Date;
 
 //lombok does the getters and setters
@@ -37,11 +39,11 @@ public class User {
 
     @Column(name = "date_created")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreated;
+    private Instant dateCreated;
 
     @Column(name = "date_updated")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateUpdated;
+    private Instant dateUpdated;
 
     // TODO FK to user_id or member_id
     @Column(name = "date_updated_id")

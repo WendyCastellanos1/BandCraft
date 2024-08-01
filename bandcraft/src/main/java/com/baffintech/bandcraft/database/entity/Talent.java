@@ -2,7 +2,6 @@ package com.baffintech.bandcraft.database.entity;
 
 // This class represents a look-up value table for talents that people can bring to a band
 import jakarta.persistence.*;   // Jakarta Persistence Query Language
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.util.Date;
 import java.util.List;
@@ -49,11 +48,9 @@ public class Talent {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;       // TODO: format to get datetime
 
-
     @Column(name = "date_updated")   // defaults to NULL in db if not sent, e.g. not an update
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateUpdated;        // TODO: format to get datetime
-
 
    @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update    // TODO FK to logged in user
    private Integer lastUpdatedId;

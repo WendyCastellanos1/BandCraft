@@ -3,12 +3,9 @@ package com.baffintech.bandcraft.database.entity;
 import jakarta.persistence.*;   // Jakarta Persistence Query Language
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.example.Band_Craft.Enums;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
 
 //lombok does the getters and setters
 @Setter

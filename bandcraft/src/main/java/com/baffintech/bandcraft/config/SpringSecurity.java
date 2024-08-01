@@ -2,6 +2,8 @@ package com.baffintech.bandcraft.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;        // noted very early in component scan
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -50,6 +52,12 @@ public class SpringSecurity {
     @Bean(name="passwordEncoder")                   // makes passwordEncoder(should name this way) available in the context; in the dependency injection engine, so I can get a reference to this whenever I need it
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean       //whenever an @Bean, must have the @Configuration above class declaration, or even just make a class for this and put both bc bean needed early in component scan
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+
+        return authConfig.getAuthenticationManager();
     }
 
 }
