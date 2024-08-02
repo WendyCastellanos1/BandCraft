@@ -69,10 +69,12 @@ public class LoginController {
 
             response.addObject("bindingResult", bindingResult);
             response.addObject("form", form);
+
         } else {
             userService.createUser(form);
             authenticatedUserUtilities.manualAuthentication(session, form.getEmail(), form.getPassword());
         }
+        response.setViewName("redirect:/");
         return response;
     }
 
