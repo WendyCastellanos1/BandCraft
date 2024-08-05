@@ -24,14 +24,14 @@
                             <label for="emailId" class="col-form-label">Email</label>
                         </div>
                         <div class="col-4">
-                            <input type="text" id="emailId" name="email" class="form-control <c:if test="${bindingResult.hasFieldErrors('email')}">is-invalid</c:if>" value="${form.email}">
+                            <input type="text" id="emailId" name="username" class="form-control <c:if test="${bindingResult.hasFieldErrors('username')}">is-invalid</c:if>" value="${form.username}">
                         </div>
                     </div>
-                    <c:if test="${bindingResult.hasFieldErrors('email')}">
+                    <c:if test="${bindingResult.hasFieldErrors('username')}">
                         <div class="row align-items-center justify-content-center">
                             <div class="offset-2 col-4">
                                 <div class="text-danger">
-                                    <c:forEach items="${bindingResult.getFieldErrors('email')}" var="error">
+                                    <c:forEach items="${bindingResult.getFieldErrors('username')}" var="error">
                                         ${error.defaultMessage}<br>
                                     </c:forEach>
                                 </div>

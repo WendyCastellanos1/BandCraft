@@ -1,51 +1,63 @@
 package com.baffintech.bandcraft.database.entity;
 
-import jakarta.persistence.*;   // Jakarta Persistence Query Language
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
-//lombok does the getters and setters
-@Setter
 @Getter
-@Entity // indicates a db
+@Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "event_types")
-
-
+@Entity
+@Table(name = "event_types", indexes = {
+        @Index(name = "last_updated_id_idx", columnList = "last_updated_id")
+})
 public class EventType {
-
-    @Id  // PK
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // indicates to Hibernate that it's doing an auto-increment
-    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name="name")
+    @Size(max = 45)
     @NotNull
+    @Column(name = "name", nullable = false, length = 45)
     private String name;
 
-    @Column(name="description")
+    @Size(max = 255)
     @NotNull
+    @Column(name = "description", nullable = false)
     private String description;
 
-//    @Column(name="is_active")
-//    @NotNull
-//    private Short isActive;           // Boolean as tinyint in db
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "is_active", nullable = false)
+    private Byte isActive;
 
-    @Column(name = "date_created")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreated;
+    @NotNull
+    @Column(name = "date_created", nullable = false)
+    private Instant dateCreated;
 
     @Column(name = "date_updated")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateUpdated;
+    private Instant dateUpdated;
 
-    @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update    // TODO FK to logged in user
+    @ColumnDefault("0")
+    @Column(name = "last_updated_id")
     private Integer lastUpdatedId;
+
+    @OneToMany(mappedBy = "eventType")
+    // private Set<Event> events = new LinkedHashSet<>();
+    private List<Event> Events = new ArrayList<>();     // list of events with given event type
+
+    @OneToMany(mappedBy = "eventType")
+    private Set<MemberEventType> memberEventTypes = new LinkedHashSet<>();  // set of preferred event types by member
 
 }

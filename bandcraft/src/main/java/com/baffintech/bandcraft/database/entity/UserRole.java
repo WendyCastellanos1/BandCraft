@@ -1,44 +1,39 @@
 package com.baffintech.bandcraft.database.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
-import java.util.Date;
 
-@Setter
 @Getter
+@Setter
 @Entity
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "user_roles")
+@Table(name = "user_roles", indexes = {
+        @Index(name = "FK_user_id_idx", columnList = "user_id")
+})
 public class UserRole {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name = "role_name")
+    @Size(max = 45)
+    @NotNull
+    @Column(name = "role_name", nullable = false, length = 45)
     private String roleName;
 
-    @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @Column(name = "create_date", nullable = false)
     private Instant createDate;
-
-//    @Column(name = "date_created")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date dateCreated;
-//
-//    @Column(name = "date_updated")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date dateUpdated;
-//
-//    @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update    // TODO FK to logged in user
-//    private Integer lastUpdatedId;
 
 }

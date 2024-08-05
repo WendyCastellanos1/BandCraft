@@ -1,58 +1,62 @@
 package com.baffintech.bandcraft.database.entity;
 
-// This class represents a look-up value table for talents that people can bring to a band
-import jakarta.persistence.*;   // Jakarta Persistence Query Language
-import lombok.*;
-import java.util.Date;
-import java.util.List;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
-//lombok does the getters and setters
-@Setter
+import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Getter
-@Entity //tells there's a db
+@Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Table(name = "talents")
-
 public class Talent {
-
-    //PK
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // this is indicating to Hibernate that it's doing an auto-increment
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    //FK        TODO:  Is this correct?
-    @ToString.Exclude
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<MemberTalent> memberTalents;
-
-    @Column(name = "name")          // required
+    @Size(max = 30)
+    @NotNull
+    @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "description")   // required
+    @Size(max = 60)
+    @NotNull
+    @Column(name = "description", nullable = false, length = 60)
     private String description;
 
-    @Column(name = "url_photo1")    // optional; defaults to NULL in db
+    @Size(max = 500)
+    @Column(name = "url_photo1", length = 500)
     private String urlPhoto1;
 
-    @Column(name = "url_photo2")    // optional; defaults to NULL in db
+    @Size(max = 500)
+    @Column(name = "url_photo2", length = 500)
     private String urlPhoto2;
 
-//    @Column(name = "is_active")     // required
-//    @NotNull
-//    private Boolean isActive;       // defaults to null in the db
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "is_active", nullable = false)
+    private Byte isActive;
 
-    @Column(name = "date_created")  // required
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreated;       // TODO: format to get datetime
+    @NotNull
+    @Column(name = "date_created", nullable = false)
+    private Instant dateCreated;
 
-    @Column(name = "date_updated")   // defaults to NULL in db if not sent, e.g. not an update
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateUpdated;        // TODO: format to get datetime
+    @Column(name = "date_updated")
+    private Instant dateUpdated;
 
-   @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update    // TODO FK to logged in user
-   private Integer lastUpdatedId;
+    @Column(name = "last_updated_id")
+    private Integer lastUpdatedId;
+
+    @OneToMany(mappedBy = "talent")
+    private Set<MemberTalent> memberTalents = new LinkedHashSet<>();
 
 }

@@ -25,7 +25,7 @@ public class UserService {
         // there were no errors so we can create the new user in the database
         User user = new User();
 
-        user.setEmail(form.getEmail());
+        user.setUsername(form.getUsername());  // note: email IS the username
 
         // we are getting in a plain text password bc the user entered it into the form
         String encryptedPassword = passwordEncoder.encode(form.getPassword());

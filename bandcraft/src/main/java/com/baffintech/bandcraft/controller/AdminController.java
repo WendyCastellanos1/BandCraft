@@ -20,7 +20,8 @@ public class AdminController {
     private AuthenticatedUserUtilities authenticatedUserUtilities;
 
     @GetMapping("/dashboard")
-    public ModelAndView dashboard() throws Exception {
+    //public ModelAndView dashboard() throws Exception {        // TODO throw the exception
+    public ModelAndView dashboard() {
         ModelAndView response = new ModelAndView("admin/dashboard");
 
         User user = authenticatedUserUtilities.getCurrentUser();

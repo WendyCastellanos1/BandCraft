@@ -1,42 +1,59 @@
 package com.baffintech.bandcraft.database.entity;
 
-import jakarta.persistence.*;   // Jakarta Persistence Query Language
-import lombok.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.util.Date;
-import java.util.List;
+import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-//lombok does the getters and setters
-@Setter
 @Getter
-@Entity //tells there's a db
+@Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "bands")
-
+@Entity
+@Table(name = "bands", indexes = {
+        @Index(name = "lead_member_id_idx", columnList = "lead_member_id"),
+        @Index(name = "last_updated_id_idx", columnList = "last_updated_id")
+})
 public class Band {
-
-    @Id //this identifies the PK
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // this is indicating to Hibernate that it's doing an auto-increment
-    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
+    @NotNull
+    @Column(name = "event_id", nullable = false)
+    private Integer eventId;
 
+    // TODO make fk / relation to memberId
+    @Column(name = "lead_member_id")        // don't think I'll need the nullable=false unless for magic reason
+    private Integer leadMemberId;
 
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "is_single_use", nullable = false)
+    private Byte isSingleUse;
 
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "is_active", nullable = false)
+    private Byte isActive;
 
-
-
-    @Column(name = "date_created")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreated;
+    @NotNull
+    @Column(name = "date_created", nullable = false)
+    private Instant dateCreated;
 
     @Column(name = "date_updated")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateUpdated;
+    private Instant dateUpdated;
 
-    @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update    // TODO FK to logged in user
+    @Column(name = "last_updated_id")
     private Integer lastUpdatedId;
+
+    @OneToMany(mappedBy = "band")
+    private Set<BandDetail> bandDetails = new LinkedHashSet<>();
 
 }

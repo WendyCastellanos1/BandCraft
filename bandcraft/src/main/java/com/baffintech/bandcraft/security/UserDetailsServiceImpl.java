@@ -35,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // this user object is in the imports section
         // fetch the user from the database - username is what the person entered into the username field on the login form
 
-        User user = userDAO.findByEmailIgnoreCase(username);
+        User user = userDAO.findByUsernameIgnoreCase(username);     // finding by email, which is username
 
         // if the user is null then whatever the person entered on the login form does not exist in the dn
         // automatically throw and exception
@@ -58,7 +58,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // this User object is part of Spring Security
         // because both objets are named User, we have to use the full path to the object
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(
-                user.getEmail(),  // this parameter is the username, in our case the user from the database
+                user.getUsername(),  // this parameter is the username (email), in our case the user from the database
                 user.getPassword(), // this is the users encrypted password from the database
                 accountIsEnabled, // is this account enabled, if false, then spring security will deny access
                 accountNonExpired,

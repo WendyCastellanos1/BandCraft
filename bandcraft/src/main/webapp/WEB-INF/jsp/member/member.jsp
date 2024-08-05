@@ -164,13 +164,93 @@
                     </c:if>
 
 
-                    <!-- File upload to put a profile photo url in the db   -->
+                    <!-- file upload to put a profile photo url in the db   -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="file" class="col-form-label">File</label>
+                            <label for="fileId" class="col-form-label">File</label>
                         </div>
                         <div class="col-4">
-                            <input type="file" id="file" name="file" class="form-control">
+                            <input type="file" id="fileId" name="file" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- birth generation dropdown(optional)  -->
+                    <div class="row align-items-center justify-content-center pt-3">
+                        <div class="col-2">
+                            <p><h3>Generational saavy is valued.</h3></p>
+                            <label for="generationId" class="label_form">Birth Generation (Optional):</label>
+                        </div>
+                        <div class="col-4">
+                            <select name="generation" id="generationId">
+                                <option value="ns">Select one...</option>
+                                <option value="a">Gen Alpha</option>
+                                <option value="z">Gen Z</option>
+                                <option value="m">Millennial</option>
+                                <option value="x">Gen X</option>
+                                <option value="b">Baby Boomer</option>
+                                <option value="s">Silent Generation</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- generation TODO - Validation for the dropdown -->
+
+                    <!-- gender  -->
+                    <div class="row align-items-center justify-content-center pt-3">
+                        <div class="col-2">
+                            <p><h3>Some locations could be gender-restricted.</h3></p>
+                            <label for="genderId" class="label_form">Gender:</label>
+                            <select name="gender" id="genderId">
+                                <option value="ns">Select one...</option>
+                                <option value="f">Female</option>>
+                                <option value="m">Male</option>
+                                <option value="o">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- gender TODO Validation for dropdown -->
+
+                    <!-- gender comment (optional)  -->
+                    <div class="row align-items-center justify-content-center pt-3">
+                        <div class="col-2">
+                            <label for="genderCommentId" class="label_form">Gender Comment:</label>
+                            <input type="text" id="genderCommentId" name="genderComment">
+                        </div>
+                    </div>
+                    <!-- gender comment TODO validation: maximum character count -->
+
+                    <!-- languages (optional, user may ignore)  -->
+                    <!-- Spanish checkbox -->
+                    <div class="row align-items-center justify-content-center pt-3">
+                        <p><h3>Can you communicate in either of these languages?</h3></p>
+                        <div class="col-2">
+                            <label for="speaksSpanishId" class="label_form">Spanish</label>
+                            <input type="checkbox" id="speaksSpanishId" name="speaksSpanish" value="speaksSpanish">
+                        </div>
+                    </div>
+                    <!-- Portuguese - checkbox -->
+                    <div class="row align-items-center justify-content-center pt-3">
+                        <div class="col-2">
+                            <input type="checkbox"  id="speaksPortugueseId" name="speaksPortuguese" value="speaksPortuguese">
+                            <label for="speaksPortugueseId" class="label_form">Portuguese</label>
+                        </div>
+                    </div>
+
+                    <!-- Misc. personal info -->
+                    <!-- Bio textarea field -->
+                    <div class="row align-items-center justify-content-center pt-3">
+                        <p><h3>You are unique!</h3></p>
+                        <div class="col-2">
+                            <label for="bioId" class="label_form">Tell us about yourself (bio): </label><br>
+                            <textarea maxlength = "1000" id="bioId" name = "bio" rows = "4" cols = "40"> </textarea><br>
+                        </div>
+                    </div>
+
+                    <!-- Social Media URL  input field (optional, user may ignore, may not have) -->
+                    <div class="row align-items-center justify-content-center pt-3">
+                        <p><h3>You are unique!</h3></p>
+                        <div class="col-2">
+                            <label for="socialMediaUrlId" class="label_form"></label>Link to your public-facing social media account</label><br>
+                            <input type="text" id="socialMediaUrlId" name="socialMediaUrl">
                         </div>
                     </div>
 

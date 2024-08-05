@@ -1,53 +1,62 @@
 package com.baffintech.bandcraft.database.entity;
 
-import jakarta.persistence.*;   // Jakarta Persistence Query Language
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.Instant;
-import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-//lombok does the getters and setters
-@Setter
 @Getter
-@Entity // indicates a db
+@Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "users")
-
+@Entity
+@Table(name = "users", indexes = {
+        @Index(name = "date_updated_id_idx", columnList = "date_updated_id")
+})
 public class User {
-
-    @Id     // PK
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // this is indicating to Hibernate that it's doing an auto-increment
-    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "email")
+    @Size(max = 200)
     @NotNull
-    private String email;
+    @Column(name = "username", nullable = false, length = 200)
+    private String username;
 
-    @Column(name = "password")
+    @Size(max = 150)
     @NotNull
+    @Column(name = "password", nullable = false, length = 150)
     private String password;
 
-//    @Column(name = "is_admin")
-//    private Boolean isAdmin;
-//
-//    @Column(name = "is_banned")              // only a leader can overturn the ban
-//    private Boolean isBanned;                // db defaults to -1
+//    @NotNull
+//    @Column(name = "is_admin", nullable = false)
+//    private Byte isAdmin;
 
-    @Column(name = "date_created")
-    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
+    @Column(name = "date_created", nullable = false)
     private Instant dateCreated;
 
     @Column(name = "date_updated")
-    @Temporal(TemporalType.TIMESTAMP)
     private Instant dateUpdated;
 
-    // TODO FK to user_id or member_id
-    @Column(name = "date_updated_id")
-    private Integer dateUpdatedId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "last_updated_id")
+    private User lastUpdatedId;
+
+//    @OneToMany(mappedBy = "lastUpdatedId")
+//    private Set<Event> events = new LinkedHashSet<>();
+
+    // don't think we'll need this bc one to one relationship between user and member, separate only for security reasons
+    //    @OneToMany(mappedBy = "user")
+    //    private Set<Member> members = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserRole> userRoles = new LinkedHashSet<>();
 
 }
-

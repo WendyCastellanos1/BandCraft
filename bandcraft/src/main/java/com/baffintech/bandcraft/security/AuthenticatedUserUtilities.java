@@ -17,8 +17,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
-import java.util.Collections;
-
 @Slf4j
 @Component
 public class AuthenticatedUserUtilities {
@@ -52,7 +50,7 @@ public class AuthenticatedUserUtilities {
         if (username == null) {
             return null;
         }
-        return userDAO.findByEmailIgnoreCase(username);
+        return userDAO.findByUsernameIgnoreCase(username);  // finding by the email, which is the username
     }
 
     public void manualAuthentication(HttpSession session, String username, String unencryptedPassword) {

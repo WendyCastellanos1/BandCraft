@@ -1,118 +1,139 @@
 package com.baffintech.bandcraft.database.entity;
 
-import jakarta.persistence.*;   // Jakarta Persistence Query Language
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.util.Date;
-import java.util.List;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.*;
 
-//lombok does the getters and setters
-@Setter
 @Getter
-@Entity //tells there's a db
+@Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "members")
-
+@Entity
+@Table(name = "members", indexes = {
+        @Index(name = "user_id_idx", columnList = "user_id"),
+        @Index(name = "last_updated_id_idx", columnList = "last_updated_id")
+}, uniqueConstraints = {
+        @UniqueConstraint(name = "id_UNIQUE", columnNames = {"id"})
+})
 public class Member {
-
-    @Id //PK
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // this is indicating to Hibernate that it's doing an auto-increment
-    @Column(name = "id")
+    @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    // FK                               // TODO  is this correct?
-    @ToString.Exclude
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<MemberTalent> memberTalents;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name = "first_name")        // required
-    @NotNull                            // varchar 30
+    @Size(max = 30)
+    @NotNull
+    @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;
 
-    @Column(name = "last_name")         // required
-    @NotNull                            // varchar 60
-    private String lastName;            // if it matches db field name Hibernate figures this out
+    @Size(max = 60)
+    @NotNull
+    @Column(name = "last_name", nullable = false, length = 60)
+    private String lastName;
 
-    @Column(name = "nickname")          // optional
-    private String nickname;            // varchar 30
+    @Size(max = 20)
+    @Column(name = "nickname", length = 20)
+    private String nickname;
 
-    @Column(name = "gender")             // required (because some events are only for women, for example)
-    @NotNull                            // varchar 1
+    @Size(max = 1)
+    @NotNull
+    @Column(name = "gender", nullable = false, length = 1)
     private String gender;
 
-    @Column(name = "gender_comment")     // optional, field available to any gender choice
+    @Size(max = 60)
+    @Column(name = "gender_comment", length = 60)
     private String genderComment;
 
-//    @Column(name="generation")
-//    @Enumerated(EnumType.STRING)
-//    private Enums.Generation generation;   // some answer required, though decline is an answer; exists bc some events benefit from generation-specific knowledge
+    @Size(max = 20)
+    @NotNull
+    @ColumnDefault("decline")
+    @Column(name = "generation", nullable = false, length = 20)
+    private String generation;
 
-   @Column(name = "phone_cell")             // required for texting, allow bogus numbers in case someone doesn't have a cell
-   @NotNull
-   private String phoneCell;
+    @Size(max = 15)
+    @NotNull
+    @Column(name = "phone_cell", nullable = false, length = 15)
+    private String phoneCell;
 
-    @Column(name = "phone_alt")             // optional
+    @Size(max = 15)
+    @Column(name = "phone_alt", length = 15)
     private String phoneAlt;
 
-    @Column(name = "email")                 // required because band emails go out with links to songs, etc.
-    private String email;
+    // email is the username, so not stored here (in users table)
 
-    @Column(name = "email_alt")             // optional, but encouraged!
-    private String emailAlt;                //optional
+    @Size(max = 150)
+    @Column(name = "email_alt", length = 150)
+    private String emailAlt;
 
-//    @Column(name = "registration_status")
-//    @Enumerated(EnumType.STRING)
-//    private Enums.RegistrationStatus registrationStatus;
+    @ColumnDefault("-1")
+    @Column(name = "registration_status")       // TODO implement process LATER
+    private Byte registrationStatus;
 
-//    @Column(name = "is_active")             // leader sets this internally when approved
-//   // some answer required, though decline is an answer; exists bc some events benefit from generation-specific knowledg
-//    private Boolean isActive;              // defaults to false (0)
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "is_active", nullable = false)
+    private Byte isActive;
 
-//    @Column(name = "date_returning")        //indicates return date for person going on hiatus
-//    private Date dateReturning;            // db defaults to Null
+    @Column(name = "date_returning")
+    private LocalDate dateReturning;
 
-//    @Column(name = "speaks_spanish")        //  TODO: note that *enum Language* exists for whatever use
-//    private Boolean speaksSpanish;         // db defaults to false (0)
-//
-//    @Column(name = "speaks_portuguese")     // TODO: note that *enum Language* exists
-//    private Boolean speaksPortuguese;      // db defaults to false (0)
-//
-//    @Column(name = "speaks_other")          // TODO: note that *enum Language* exists
-//    private Boolean speaksOther;
-//
-//    @Column( name = "speaksOtherComment")  // free form entry by member regarding other languages
-//    private Boolean speaksOtherComment;   // db defaults to false (0)
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "speaks_spanish", nullable = false)
+    private Byte speaksSpanish;
 
-    @Column(name = "bio")              // optional, member makes their own bio here when they join
-    private String bio;                // db defaults to null
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "speaks_portuguese", nullable = false)
+    private Byte speaksPortuguese;
 
-    @Column(name = "profile_photo_url")     // TODO: evaluate if we should store a photo; how to upload, etc.
-    private String profilePhotoUrl;         // TODO: varchar 200; put a *default URL* for a generic image in the db
+    @Size(max = 1000)
+    @Column(name = "bio", length = 1000)
+    private String bio;
 
-    @Column(name = "social_media_url")      // TODO: varchar 200;
+    @Size(max = 50)
+    @Column(name = "profile_photo", length = 50)
+    private String profilePhoto;
+
+    @Size(max = 100)
+    @Column(name = "social_media_url", length = 100)
     private String socialMediaUrl;
 
-    @Column(name = "date_created")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreated;
+    @NotNull
+    @ColumnDefault("-1")
+    @Column(name = "is_banned", nullable = false)
+    private Byte isBanned;
+
+    @NotNull
+    @Column(name = "date_created", nullable = false)
+    private Instant dateCreated;
 
     @Column(name = "date_updated")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateUpdated;
+    private Instant dateUpdated;
 
-    @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update    // TODO FK to logged in user
+    @ColumnDefault("-1")
+    @Column(name = "last_updated_id")
     private Integer lastUpdatedId;
 
+    @OneToMany(mappedBy = "member")
+    //private Set<MemberEventType> memberEventTypesSet = new LinkedHashSet<>();
+    private List<MemberEventType> memberEventTypesList = new ArrayList<MemberEventType>();
 
-    // FK on last_updated_id TODO: Does this self-join work?  OR are we linking to user_id?
-    // select m.id from members m, members mm where m.id = mm.last_updated_id;  // defaults to -1
-//    @ManyToOne(cascade={CascadeType.ALL})
-//    @JoinColumn(name="last_updated_id")
-//    private Member leader;
-//
-//    @OneToMany(mappedBy="leader")
-//    private Set<Member> subordinates = new HashSet<Member>();
+    @OneToMany(mappedBy = "member")
+    //private Set<MemberTalent> memberTalents = new LinkedHashSet<>();
+    private List<MemberTalent> memberTalents = new LinkedList<>();
+
 }

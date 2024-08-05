@@ -10,7 +10,7 @@ public class CreateAccountFormBean {
     private Integer id;
 
     @NotEmpty
-    private String email;
+    private String username;
 
     @NotEmpty
     private String password;

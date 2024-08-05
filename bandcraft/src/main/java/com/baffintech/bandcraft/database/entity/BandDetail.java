@@ -14,11 +14,12 @@ import java.time.Instant;
 @Setter
 @ToString
 @Entity
-@Table(name = "member_event_types", indexes = {
-        @Index(name = "member_id_idx", columnList = "member_id"),
-        @Index(name = "event_type_id_idx", columnList = "event_type_id")
+@Table(name = "band_details", indexes = {
+        @Index(name = "band_id_idx", columnList = "band_id"),
+        @Index(name = "member_talent_id_idx", columnList = "member_talent_id"),
+        @Index(name = "last_updated_id_idx", columnList = "last_updated_id")
 })
-public class MemberEventType {
+public class BandDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -26,14 +27,15 @@ public class MemberEventType {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "member_id", nullable = false, referencedColumnName = "id")
-    private Member member;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "band_id", nullable = false)
+    private Band band;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "event_type_id", nullable = false)
-    private EventType eventType;
+    @JoinColumn(name = "member_talent_id", nullable = false)
+    private MemberTalent memberTalent;
 
     @NotNull
     @Column(name = "date_created", nullable = false)

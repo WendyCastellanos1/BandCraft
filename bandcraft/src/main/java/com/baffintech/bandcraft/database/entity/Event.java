@@ -1,116 +1,121 @@
 package com.baffintech.bandcraft.database.entity;
 
-import jakarta.persistence.*;   // Jakarta Persistence Query Language
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import org.example.Band_Craft.Enums;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
+import java.time.Instant;
 
-//lombok does the getters and setters
-@Setter
 @Getter
-@Entity //tells there's a db
+@Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "events")
-
+@Entity
+@Table(name = "events", indexes = {
+        @Index(name = "event_type_id_idx", columnList = "event_type_id"),
+        @Index(name = "last_updated_id_idx", columnList = "last_updated_id")
+})
 public class Event {
-
-    @Id //PK
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // this is indicating to Hibernate that it's doing an auto-increment
-    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    // FK - eventType_id
-    @ToString.Exclude                      // TODO   is this correct?
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<EventType> eventTypes;
-
-    @Column (name = "event_type_id")       // TODO   is this correct?
-    private Integer eventTypeId;
-
-    @Column(name = "start_datetime")
     @NotNull
-    private Date startDateTime;         // TODO fix date
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "event_type_id", nullable = false)
+    private EventType eventType;
+
+    @NotNull
+    @Column(name = "start_datetime", nullable = false)
+    private Instant startDatetime;
 
     @Column(name = "end_datetime")
-    private Date endDateTime;           // TODO fix date
+    private Instant endDatetime;
 
-    @Column(name = "location")          // TODO varchar 255
+    @Size(max = 255)
     @NotNull
+    @Column(name = "location", nullable = false)
     private String location;
 
-//    @Column(name = "is_continuous")
-//    @NotNull
-//    private Boolean isContinuous;
-//
-//    @Column(name = "is_family_friendly")
-//    private Boolean isFamilyFriendly;
-//
-//    @Column(name = "no_minors_allowed")
-//    private Boolean noMinorsAllowed;
-//
-//    @Column(name = "only_minors_allowed")
-//    private Boolean onlyMinorsAllowed;
-//
-//    @Column(name = "is_gender_specific")
-//    private Boolean isGenderSpecific;
-//
-//    @Column(name = "has_free_food")
-//    private Boolean hasFreeFood;
-//
-//    @Column(name = "is_indoors_has_ac")
-//    private Boolean isIndoorsHasAc;
-//
-//    @Column(name = "is_indoors_has_no_ac")
-//    private Boolean isIndoorsHasNoAc;
-//
-//    @Column(name = "is_outdoors_shade")
-//    private Boolean isOutdoorsShade;
-//
-//    @Column(name = "is_outdoors_no_shade")
-//    private Boolean isOutdoorsNoShade;
-//
-//    @Column(name = "sound_system_provided")         // TODO  varchar 500
-//    @NotNull
-//    private Boolean soundSystemProvided;
+    @NotNull
+    @Column(name = "is_continuous", nullable = false)
+    private Byte isContinuous;
 
-    @Column(name = "sound_system_comments")
+    @Column(name = "is_family_friendly")
+    private Byte isFamilyFriendly;
+
+    @Column(name = "no_minors_allowed")
+    private Byte noMinorsAllowed;
+
+    @Column(name = "only_minors_allowed")
+    private Byte onlyMinorsAllowed;
+
+    @Column(name = "is_gender_specific")
+    private Byte isGenderSpecific;
+
+    @Column(name = "has_free_food")
+    private Byte hasFreeFood;
+
+    @Column(name = "is_indoors_has_ac")
+    private Byte isIndoorsHasAc;
+
+    @Column(name = "is_indoors_no_ac")
+    private Byte isIndoorsNoAc;
+
+    @Column(name = "is_outdoors_shade")
+    private Byte isOutdoorsShade;
+
+    @Column(name = "is_outdoors_no_shade")
+    private Byte isOutdoorsNoShade;
+
+    @NotNull
+    @Column(name = "sound_system_provided", nullable = false)
+    private Byte soundSystemProvided;
+
+    @Size(max = 500)
+    @Column(name = "sound_system_comments", length = 500)
     private String soundSystemComments;
 
-    @Column(name = "contact_first_name")            // TODO  varchar 45
+    @Size(max = 45)
+    @Column(name = "contact_first_name", length = 45)
     private String contactFirstName;
 
-    @Column(name = "contact_last_name")             // TODO  varchar 45
+    @Size(max = 45)
+    @Column(name = "contact_last_name", length = 45)
     private String contactLastName;
 
-    @Column(name = "contact_email")                 // TODO varchar 150
+    @Size(max = 60)
+    @Column(name = "contact_email", length = 60)
     private String contactEmail;
 
-    @Column(name = "contact_phone_alt")             // TODO varchar 15
-    private String contactPhone;
+    @Size(max = 15)
+    @Column(name = "contact_phone_alt", length = 15)
+    private String contactPhoneAlt;
 
-    @Column(name = "contact_phone_cell")            // TODO varchar 15
+    @Size(max = 15)
     @NotNull
+    @Column(name = "contact_phone_cell", nullable = false, length = 15)
     private String contactPhoneCell;
 
-    @Column(name = "comments")                      // TODO varchar 1000
+    @Size(max = 1000)
+    @Column(name = "comments", length = 1000)
     private String comments;
 
-    @Column(name = "date_created")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreated;
+    @NotNull
+    @Column(name = "date_created", nullable = false)
+    private Instant dateCreated;
 
     @Column(name = "date_updated")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateUpdated;
+    private Instant dateUpdated;
 
-    @Column(name = "last_updated_id")   // defaults to NULL in db if not sent, e.g. not an update    // TODO FK to logged in user
-    private Integer lastUpdatedId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "last_updated_id")
+    private User lastUpdatedId;
 
 }

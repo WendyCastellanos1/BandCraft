@@ -16,7 +16,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
@@ -55,7 +54,7 @@ public class LoginController {
         // using my custom annotation
         // when doing a manual check in the controller, we want this before the binding result.hasErrors check so that it will fall into that block of code
         if(form.getId() == null) {      // if this is a create:
-            User u = userDAO.findByEmailIgnoreCase(form.getEmail());
+            User u = userDAO.findByUsernameIgnoreCase(form.getUsername());  // find by email, which is the username
 
             if ( u != null){
                 bindingResult.rejectValue("email", "email", "This email is already in use. Manual check.");
@@ -72,7 +71,7 @@ public class LoginController {
 
         } else {
             userService.createUser(form);
-            authenticatedUserUtilities.manualAuthentication(session, form.getEmail(), form.getPassword());
+            authenticatedUserUtilities.manualAuthentication(session, form.getUsername(), form.getPassword());
         }
         response.setViewName("redirect:/");
         return response;
