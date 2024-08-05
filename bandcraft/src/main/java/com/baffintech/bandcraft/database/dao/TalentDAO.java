@@ -12,8 +12,10 @@ public interface TalentDAO extends JpaRepository<Talent, Long> {
     Talent findByIdAndIsActive(Integer id, Byte isActive);
 
     Talent findByName(String name);
+    //Talent findByNameLowerCase(String name);  TODO
     Talent findByNameAndIsActive(String name, Byte isActive);
 
     List<Talent> findByIsActive(Byte isActive);
 
+    Talent findByNameIgnoreCase(String name);
 }

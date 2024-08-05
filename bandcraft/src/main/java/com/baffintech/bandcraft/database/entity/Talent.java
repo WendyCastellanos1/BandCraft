@@ -28,26 +28,25 @@ public class Talent {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Size(max = 60)
+    @Size(max = 300)
     @NotNull
-    @Column(name = "description", nullable = false, length = 60)
+    @Column(name = "description", length = 300)
     private String description;
 
     @Size(max = 500)
-    @Column(name = "url_photo1", length = 500)
-    private String urlPhoto1;
+    @Column(name = "url_small_photo", length = 500)
+    private String urlSmallPhoto;
 
     @Size(max = 500)
-    @Column(name = "url_photo2", length = 500)
-    private String urlPhoto2;
+    @Column(name = "url_large_photo", length = 500)
+    private String urlLargePhoto;
 
-    @NotNull
     @ColumnDefault("0")
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active")
     private Byte isActive;
 
-    @NotNull
-    @Column(name = "date_created", nullable = false)
+    // @NotNull
+    @Column(name = "date_created")
     private Instant dateCreated;
 
     @Column(name = "date_updated")
