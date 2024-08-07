@@ -5,6 +5,10 @@ import org.springframework.data.jpa.repository.*;
 
 public interface BandDAO extends JpaRepository<Band, Long> {
 
+    Band findById(Integer id);
+
+    // Band findByleader(Integer memberId);        // TODO  native query
+
 
 
 }

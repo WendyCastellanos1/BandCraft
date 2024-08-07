@@ -5,15 +5,15 @@
 
 
 <!-- a page header -->
-<section style="background-color:orange">
+<section style="background-color:aquamarine">
     <div class="container">
         <div class="row pt-5 pb-5">
             <h1>
                 <c:if test="${empty form.id}">
-                    <h1 class="text-center">Registration 1</h1>
+                    <h1 class="text-center">Member Profile</h1>
                 </c:if>
                 <c:if test="${not empty form.id}">
-                    <h1 class="text-center">Edit Profile 1</h1>
+                    <h1 class="text-center">Edit Profile</h1>
                 </c:if>
             </h1>
         </div>
@@ -24,11 +24,8 @@
     <div class="container">
         <div class="row pt-5 ">
             <div class="col-12">
-                <form action="/member/regSubmit1" method="post" enctype="multipart/form-data">
+                <form action="/member/createSubmit" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="${form.id}">  <!-- id is the member id  -->
-
-                    <h2>Profile: Part 1</h2>     <!-- TODO look bad  -->
-                    <div><p><h3>Name:</h3></div>        <!-- TODO look bad  -->
 
                     <!-- firstName input field -->
                     <div class="row align-items-center justify-content-center pt-3">
@@ -109,8 +106,6 @@
                         </div>
                     </c:if>
 
-                    <div><h3>Communication:</h3></div>          <!-- TODO may look bad  -->
-
                     <!-- cell phone input field -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
@@ -118,18 +113,18 @@
                         </div>
                         <div class="col-4">
                             <input type="text"
-                                   id="phoneId"
-                                   name="phone"
+                                   id="phoneCellId"
+                                   name="phoneCell"
                                    class="form-control
-                                        <c:if test="${bindingResult.hasFieldErrors('phone')}">is-invalid</c:if>"
-                                   value="${form.phone} ">
+                                        <c:if test="${bindingResult.hasFieldErrors('phoneCell')}">is-invalid</c:if>"
+                                   value="${form.phoneCell} ">
                         </div>
                     </div>
-                    <c:if test="${bindingResult.hasFieldErrors('phone')}">
+                    <c:if test="${bindingResult.hasFieldErrors('phoneCell')}">
                         <div class="row align-items-center justify-content-center">
                             <div class="offset-2 col-4">
                                 <div style="color:red">
-                                    <c:forEach items="${bindingResult.getFieldErrors('phone')}" var="error">
+                                    <c:forEach items="${bindingResult.getFieldErrors('phoneCell')}" var="error">
                                         ${error.defaultMessage}<br>
                                     </c:forEach>
                                 </div>
@@ -167,7 +162,7 @@
                     <!-- file upload to put a profile photo url in the db   -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="fileId" class="col-form-label">File</label>
+                            <label for="fileId" class="col-form-label">Profile Photo</label>
                         </div>
                         <div class="col-4">
                             <input type="file" id="fileId" name="file" class="form-control">
@@ -177,7 +172,6 @@
                     <!-- birth generation dropdown(optional)  -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <p><h3>Generational saavy is valued.</h3></p>
                             <label for="generationId" class="label_form">Birth Generation (Optional):</label>
                         </div>
                         <div class="col-4">
@@ -197,8 +191,9 @@
                     <!-- gender  -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <p><h3>Some locations could be gender-restricted.</h3></p>
                             <label for="genderId" class="label_form">Gender:</label>
+                        </div>
+                        <div class="col-4">
                             <select name="gender" id="genderId">
                                 <option value="ns">Select one...</option>
                                 <option value="f">Female</option>>
@@ -213,23 +208,27 @@
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
                             <label for="genderCommentId" class="label_form">Gender Comment:</label>
+                        </div>
+                        <div class="col-4">
                             <input type="text" id="genderCommentId" name="genderComment">
                         </div>
                     </div>
+
+
+
+
                     <!-- gender comment TODO validation: maximum character count -->
+
 
                     <!-- languages (optional, user may ignore)  -->
                     <!-- Spanish checkbox -->
                     <div class="row align-items-center justify-content-center pt-3">
-                        <p><h3>Can you communicate in either of these languages?</h3></p>
                         <div class="col-2">
-                            <label for="speaksSpanishId" class="label_form">Spanish</label>
-                            <input type="checkbox" id="speaksSpanishId" name="speaksSpanish" value="speaksSpanish">
+                            <p>Can you communicate in either of these languages?</p>
                         </div>
-                    </div>
-                    <!-- Portuguese - checkbox -->
-                    <div class="row align-items-center justify-content-center pt-3">
-                        <div class="col-2">
+                        <div class="col-4">
+                            <input type="checkbox" id="speaksSpanishId" name="speaksSpanish" value="speaksSpanish">
+                            <label for="speaksSpanishId" class="label_form">Spanish</label>
                             <input type="checkbox"  id="speaksPortugueseId" name="speaksPortuguese" value="speaksPortuguese">
                             <label for="speaksPortugueseId" class="label_form">Portuguese</label>
                         </div>
@@ -238,18 +237,20 @@
                     <!-- Misc. personal info -->
                     <!-- Bio textarea field -->
                     <div class="row align-items-center justify-content-center pt-3">
-                        <p><h3>You are unique!</h3></p>
                         <div class="col-2">
                             <label for="bioId" class="label_form">Tell us about yourself (bio): </label><br>
+                        </div>
+                        <div class="col-4">
                             <textarea maxlength = "1000" id="bioId" name = "bio" rows = "4" cols = "40"> </textarea><br>
                         </div>
                     </div>
 
                     <!-- Social Media URL  input field (optional, user may ignore, may not have) -->
                     <div class="row align-items-center justify-content-center pt-3">
-                        <p><h3>You are unique!</h3></p>
                         <div class="col-2">
-                            <label for="socialMediaUrlId" class="label_form"></label>Link to your public-facing social media account</label><br>
+                            <label for="socialMediaUrlId" class="col-form-label">Link to your public-facing social media account</label>
+                        </div>
+                        <div class="col-4">
                             <input type="text" id="socialMediaUrlId" name="socialMediaUrl">
                         </div>
                     </div>

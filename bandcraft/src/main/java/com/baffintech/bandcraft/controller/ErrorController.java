@@ -25,8 +25,8 @@ public class ErrorController {
 
     // the @ControllerAdvice annotation is used to define as an exception handler
 
-    // this is optional ... im just showing you some things .. this is a catch all bucket for 404 errors
-    // I am using this in seriesreminder because I need to do additional processing for a 404 page
+    // this is optional ... im just showing you some things .. this is a catch-all bucket for 404 errors
+    // EH uses this in seriesreminder because to do additional processing for a 404 page
     @ExceptionHandler(NoResourceFoundException.class)
     @RequestMapping(value = {"/error/404", "/404"})
     public ModelAndView error404(HttpServletRequest request) {

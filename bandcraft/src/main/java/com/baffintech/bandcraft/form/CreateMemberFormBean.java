@@ -71,13 +71,13 @@ public class CreateMemberFormBean {
     private Byte speaksPortuguese;
 
     private String bio;
-    private MultipartFile profile_photo;
+    private MultipartFile profilePhoto;
     private String socialMediaUrl;
 
     // TODO  this is set by an ADMIN in service
     private Byte isBanned;
 
-    @NotEmpty(message = "Error: dateCreated not being passed to CreateMemberFormBean")
+    // @NotEmpty(message = "Error: dateCreated not being passed to CreateMemberFormBean")
     private Instant dateCreated;
 
     private Instant dateUpdated;

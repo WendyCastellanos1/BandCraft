@@ -36,8 +36,22 @@ public class TalentController {
     public ModelAndView findAll() {
 
         ModelAndView response = new ModelAndView("talent/list");
-        List<Talent> employees = talentDAO.findAll();
-        response.addObject("talentsKey", employees);
+        List<Talent> talents = talentDAO.findAll();
+
+
+        //this is a stream with a lambda function
+        log.debug("*****************stream********************");
+        talents.stream().forEach(talent -> {
+           log.debug("Product: " + talent.getName());
+        });
+
+        // is same as above
+        log.debug("*****************for loop********************");
+        for(Talent talent : talents) {
+            log.debug("Talent: " + talent.getName());
+        }
+
+        response.addObject("talentsKey", talents);
 
         return response;
     }
@@ -101,10 +115,12 @@ public class TalentController {
 
             // this is a URL, NOT a view name
             // in some ways this is overriding the behavior of the setViewName to use a URL rather than a JSP file location
-            response.setViewName("talent/create");
+            //response.setViewName("talent/create");
 
             // redirecting to the talent detail page, but usually you'd go to fully populated EDIT page, take emp id on url and use it to populate all the fields before rendering
             //response.setViewName("redirect:/talent/edit?id=" + form.getId());
+
+            response.setViewName("redirect:/talent/list");
 
             return response;
         }
@@ -154,8 +170,6 @@ public class TalentController {
 //
 //        return response;
 //    }
-
-
 
 
 }

@@ -6,7 +6,7 @@
 
 
 
-
+<h1>This is the event detail page.</h1>
 
 
 

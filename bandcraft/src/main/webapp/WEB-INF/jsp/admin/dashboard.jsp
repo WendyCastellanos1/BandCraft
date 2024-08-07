@@ -1,6 +1,21 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <jsp:include page="../include/header.jsp" />
 
-<br><br>
-<h1 class="page-title">This is an admin JSP page (dashboard)</h1>
 
-<jsp:include page="../include/footer.jsp" />
+<!-- a page header -->
+<section style="background-color:aquamarine">
+    <div class="container">
+        <div class="row pt-5 pb-5">
+            <h1 class="text-center">Admin Dashboard</h1>
+        </div>
+    </div>
+</section>
+
+<br><br><br>
+
+<h4 class="text-center">This will be the admin dashboard</h4>
+
+
+<jsp:include page="../include/footer.jsp"/>
+

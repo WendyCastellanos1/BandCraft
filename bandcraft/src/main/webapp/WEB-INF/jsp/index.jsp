@@ -1,13 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>this is our capstone project</h1>
-</body>
-</html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<jsp:include page="./include/header.jsp" />
+
+
+<!-- a page header -->
+<section style="background-color:aquamarine">
+    <div class="container">
+        <div class="row pt-5 pb-5">
+            <h1 class="text-center">Home</h1>
+        </div>
+    </div>
+</section>
+
+<br><br><br>
+
+<h4 class="text-center">Connecting the talent to form bands</h4>
+
+
+<jsp:include page="./include/footer.jsp"/>
+

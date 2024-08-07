@@ -3,12 +3,19 @@
 <jsp:include page="../include/header.jsp" />
 
 
+<!-- a page header -->
+<section style="background-color:aquamarine">
+    <div class="container">
+        <div class="row pt-5 pb-5">
+            <h1 class="text-center">Member Search</h1>
+        </div>
+    </div>
+</section>
+
+<br><br><br>
+
+<h4 class="text-center">This will be the member search page.</h4>
 
 
+<jsp:include page="../include/footer.jsp"/>
 
-
-
-
-
-
-<jsp:include page="../include/footer.jsp" />

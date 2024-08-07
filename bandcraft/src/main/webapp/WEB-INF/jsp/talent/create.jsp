@@ -100,7 +100,7 @@
                             <label for="urlLargePhotoId" class="col-form-label">URL: Large Photo</label>
                         </div>
                         <div class="col-4">
-                            <input type="text" id="urlLargePhotoId" name="photoLargeUrl" class="form-control <c:if test="${bindingResult.hasFieldErrors('urlLargePhoto')}">is-invalid</c:if>" value="${form.urlLargePhoto}">
+                            <input type="text" id="urlLargePhotoId" name="urlLargePhoto" class="form-control <c:if test="${bindingResult.hasFieldErrors('urlLargePhoto')}">is-invalid</c:if>" value="${form.urlLargePhoto}">
                         </div>
                     </div>
                     <c:if test="${bindingResult.hasFieldErrors('urlLargePhoto')}">
@@ -119,7 +119,7 @@
 
                     <div class="row justify-content-center pt-3 ">
                         <div class="col-auto text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -128,5 +128,14 @@
     </div>
 </section>
 
+<script>
+    document.addEventListener(
+        'DOMContentLoaded', () => {
+            document.getElementById('submitButton').
+            addEventListener('click', function () {
+                alert('You have created a new talent!');
+            });
+        });
+</script>
 
 <jsp:include page="../include/footer.jsp" />

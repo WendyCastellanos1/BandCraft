@@ -14,7 +14,9 @@ public interface MemberDAO extends JpaRepository<Member, Long> {
 
     // findAll()  TODO
 
-    //List<Member> findByIsActive(Byte isActive, Pageable pageable);
+    @Query (value = "select m from Member m where m.isActive = 1")
+    List<Member> findByActive();
+//    List<Member> findByIsActive(Byte isActive, Pageable pageable);
 
     List<Member> findByFirstName(String firstName);
     //List<Member> findByIsActiveAndFirstName(Byte isActive, String firstName);
@@ -24,6 +26,9 @@ public interface MemberDAO extends JpaRepository<Member, Long> {
 
     List<Member> findByNickname(String nickname);
     //List<Member> findByIsActiveAndNickname(Byte isActive, String nickname);
+
+    @Query(value = "select * from members m where m.first_name = :search OR m.last_name = :search OR m.nickname = :search",  nativeQuery = true)
+    List<Member> findByFirstNameOrLastNameOrNickname(String search);
 
     //List<Member> findByGender(String gender);
     //List<Member> findByIsActiveAndGender(Byte isActive, String gender, Pageable pageable);

@@ -5,7 +5,7 @@
 
 
 
-
+<h1>This is the event list page.</h1>
 
 
 
