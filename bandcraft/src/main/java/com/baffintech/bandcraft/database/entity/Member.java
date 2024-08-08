@@ -1,12 +1,15 @@
 package com.baffintech.bandcraft.database.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -35,12 +38,12 @@ public class Member {
     private User user;
 
     @Size(max = 30)
-    @NotNull
+    @NotEmpty
     @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;
 
     @Size(max = 60)
-    @NotNull
+    @NotEmpty
     @Column(name = "last_name", nullable = false, length = 60)
     private String lastName;
 
@@ -49,7 +52,7 @@ public class Member {
     private String nickname;
 
     @Size(max = 1)
-    @NotNull
+    @NotEmpty
     @Column(name = "gender", nullable = false, length = 1)
     private String gender;
 
@@ -58,13 +61,13 @@ public class Member {
     private String genderComment;
 
     @Size(max = 20)
-    @NotNull
+    @NotEmpty
     @ColumnDefault("decline")
     @Column(name = "generation", nullable = false, length = 20)
     private String generation;
 
     @Size(max = 15)
-    @NotNull
+    @NotEmpty
     @Column(name = "phone_cell", nullable = false, length = 15)
     private String phoneCell;
 
@@ -104,8 +107,7 @@ public class Member {
     @Column(name = "bio", length = 1000)
     private String bio;
 
-    @Size(max = 50)
-    @Column(name = "profile_photo", length = 50)
+    @Column(name = "profile_photo")         // path to
     private String profilePhoto;
 
     @Size(max = 100)

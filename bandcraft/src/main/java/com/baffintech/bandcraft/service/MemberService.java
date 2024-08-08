@@ -10,10 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.time.Instant;
 
 @Slf4j
@@ -34,14 +30,18 @@ public class MemberService {
         log.debug(form.toString());
 
         // make the object to load up
-        Member member = memberDAO.findById(form.getId());
+        User user = authenticatedUserUtilities.getCurrentUser();
+        Member member = memberDAO.findByUser(user);
 
         Boolean isCreate = false;
         if (member == null) {
-            // this means it was not found in the db so we are going to consider this a create
+            // this means person was not found in the members table, so we are going to consider this a create
             isCreate = true;
             member = new Member();
         }
+
+        member.setUser(user);
+
         // get data from the form on the web page
         member.setFirstName(form.getFirstName());
         member.setLastName(form.getLastName());
@@ -57,7 +57,7 @@ public class MemberService {
         member.setSpeaksSpanish(form.getSpeaksSpanish());
         // member.setProfilePhoto(form.getProfilePhoto());  // Not doing this one bc it was a file upload
         member.setSocialMediaUrl(form.getSocialMediaUrl());
-        member.setUser(form.getUser());                                                             // TODO EXPERIMENT can I just get user this way?
+
 
         if (isCreate){                                                                               // TODO  I am defaulting to *active* on create, but admin can channge this when members say they're taking a break or quitting
             // set the *created* "timestamp"
@@ -71,8 +71,7 @@ public class MemberService {
             member.setDateUpdated(Instant.now());
         }
 
-        // get *logged in user* to store as person (user) creating or editing this record             // TODO is the original available by reference?
-        User user = authenticatedUserUtilities.getCurrentUser();
+        // *logged in user* is stored as person (user) creating or editing this record             // TODO is the original available by reference?
         log.debug(user.toString());
         member.setLastUpdatedId(user.getId());
 

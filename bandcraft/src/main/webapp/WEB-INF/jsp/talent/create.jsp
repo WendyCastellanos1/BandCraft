@@ -30,7 +30,7 @@
                     <!-- name input -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="nameId" class="col-form-label">Name</label>
+                            <label for="nameId" class="col-form-label"><b>Name</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text" id="nameId" name="name" class="form-control <c:if test="${bindingResult.hasFieldErrors('name')}">is-invalid</c:if>" value="${form.name}">
@@ -51,7 +51,7 @@
                     <!-- description input field -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="descriptionId" class="col-form-label">Description</label>
+                            <label for="descriptionId" class="col-form-label"><b>Description</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text"
@@ -76,7 +76,7 @@
                     <!-- small photo url input -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="urlSmallPhotoId" class="col-form-label">URL: Small Photo</label>
+                            <label for="urlSmallPhotoId" class="col-form-label"><b>URL: Small Photo</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text" id="urlSmallPhotoId" name="urlSmallPhoto" class="form-control <c:if test="${bindingResult.hasFieldErrors('urlSmallPhoto')}">is-invalid</c:if>" value="${form.urlSmallPhoto}">
@@ -97,7 +97,7 @@
                     <!-- Large photo url input -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="urlLargePhotoId" class="col-form-label">URL: Large Photo</label>
+                            <label for="urlLargePhotoId" class="col-form-label"><b>URL: Large Photo</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text" id="urlLargePhotoId" name="urlLargePhoto" class="form-control <c:if test="${bindingResult.hasFieldErrors('urlLargePhoto')}">is-invalid</c:if>" value="${form.urlLargePhoto}">

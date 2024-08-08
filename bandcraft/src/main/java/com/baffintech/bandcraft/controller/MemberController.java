@@ -71,17 +71,7 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
             ModelAndView response = new ModelAndView();
             log.debug(form.toString());     // prints the form data to the console using the CreateMemberFormBean form
 
-            // we want to validate the member doesn't exist in the db, but also check if it's a create
-            // when doing a manual check in the controller, we want this before the binding result.hasErrors check so that it will fall into that block of code
-            // if this is a create:
-//            if(form.getId() == null) {
-//
-//                // TODO - this may be unnecessary Member m = memberDAO.findByUser(form.getName());
-//
-//                if ( t != null){
-//                    bindingResult.rejectValue("name", "name", "This member ? is already in use. Manual check.");
-//                }
-//            }
+            // to become a user, they had a unique email. once authenticated, they can only become a member once with that email because the role is set upon membership, so role controls menu...no additional attempts to create duplicate possible from member through GUI
 
             //this is a pattern
             if (bindingResult.hasErrors()) {
@@ -107,7 +97,7 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
                 // redirecting to the talent detail page, but usually you'd go to fully populated EDIT page, take emp id on url and use it to populate all the fields before rendering
                 //response.setViewName("redirect:/talent/edit?id=" + form.getId());
 
-                response.setViewName("redirect:/member/detail");
+                response.setViewName("redirect:/member/detail/" + member.getId());
 
                 return response;
             }
@@ -137,7 +127,7 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
                     form.setBio(member.getBio());
                     form.setPhoneCell(member.getPhoneCell());
                     form.setPhoneAlt(member.getPhoneAlt());
-                    // form.setProfilePhoto(member.getProfilePhoto());      // TODO why does it hate member.getProfilePhoto() ?
+                    form.setProfilePhoto(member.getProfilePhoto());      // TODO why does it hate member.getProfilePhoto() ?
                     form.setSocialMediaUrl(member.getSocialMediaUrl());
                     form.setSpeaksPortuguese((member.getSpeaksPortuguese()));
                     form.setSpeaksSpanish(member.getSpeaksSpanish());

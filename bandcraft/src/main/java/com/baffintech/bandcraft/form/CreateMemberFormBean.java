@@ -19,15 +19,17 @@ public class CreateMemberFormBean {
     // this field is ONLY set when user calls the /member/edit URL and gives a valid member id
     private Integer id;     // member id will auto-increment, can't get from reg page until saved
 
+    @NotNull
     private Integer userId; // this is the logged-in userId of person making their profile
 
+    @NotNull
     private User user;
 
-    @Length(max = 60, message = "First name can have a maximum of 50 characters")
+    @Length(max=60, message = "First name can have a maximum of 50 characters")
     @NotEmpty(message = "First name is required.")
     private String firstName;
 
-    @Length(max = 60, message = "Last name can have a maximum of 50 characters")
+    @Length(max=60, message = "Last name can have a maximum of 50 characters")
     @NotEmpty(message = "Last name is required.")
     private String lastName;
 
@@ -71,7 +73,7 @@ public class CreateMemberFormBean {
     private Byte speaksPortuguese;
 
     private String bio;
-    private MultipartFile profilePhoto;
+    private String profilePhoto;
     private String socialMediaUrl;
 
     // TODO  this is set by an ADMIN in service
