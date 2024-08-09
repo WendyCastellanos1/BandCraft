@@ -52,7 +52,6 @@ public class TalentController {
         for(Talent talent : talents) {
             log.debug("Talent: " + talent.getName());
         }
-
         response.addObject("talentsKey", talents);
 
         return response;

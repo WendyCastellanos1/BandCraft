@@ -133,7 +133,7 @@
         'DOMContentLoaded', () => {
             document.getElementById('submitButton').
             addEventListener('click', function () {
-                alert('You have created a new talent!');
+                alert('Drum roll!');
             });
         });
 </script>

@@ -22,23 +22,20 @@ import java.util.*;
 @Table(name = "members")
 public class Member {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Size(max = 30)
-    @NotEmpty
+
     @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;
 
     @Size(max = 60)
-    @NotEmpty
     @Column(name = "last_name", nullable = false, length = 60)
     private String lastName;
 
@@ -47,7 +44,7 @@ public class Member {
     private String nickname;
 
     @Size(max = 1)
-    @NotEmpty
+
     @Column(name = "gender", nullable = false, length = 1)
     private String gender;
 
@@ -56,7 +53,7 @@ public class Member {
     private String genderComment;
 
     @Size(max = 20)
-    @NotEmpty
+
     @ColumnDefault("decline")
     @Column(name = "generation", nullable=false, length = 20)
     private String generation;
@@ -76,15 +73,13 @@ public class Member {
     @Column(name = "email_alt", length = 150)
     private String emailAlt;
 
-    @NotNull
-    @ColumnDefault("0")
-    @Column(name = "speaks_spanish")
-    private Byte speaksSpanish;
+    @Column(name = "speaks_spanish", columnDefinition = "TINYINT")
+    @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
+    private boolean speaksSpanish;
 
-    @NotNull
-    @ColumnDefault("0")
-    @Column(name = "speaks_portuguese")
-    private Byte speaksPortuguese;
+    @Column(name = "speaks_portuguese", columnDefinition = "TINYINT")
+    @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
+    private boolean speaksPortuguese;
 
     @Size(max = 1000)
     @Column(name = "bio", length = 1000)
@@ -98,10 +93,9 @@ public class Member {
     private String socialMediaUrl;
 
     @ColumnDefault("-1")
+
     @Column(name = "registration_status")                               // TODO implement process LATER
     private Byte registrationStatus;
-
-    @NotNull
     @ColumnDefault("0")
     @Column(name = "is_active", nullable = false)
     private Byte isActive;
@@ -109,12 +103,11 @@ public class Member {
     @Column(name = "date_returning")
     private LocalDate dateReturning;
 
-    @NotNull
-    @ColumnDefault("-1")
-    @Column(name = "is_banned")
-    private Byte isBanned;
+//    @ColumnDefault("-1")
+//    @Column(name = "is_banned")
+//    private Byte isBanned;
 
-    @NotNull
+
     @Column(name = "date_created", nullable = false)
     private Instant dateCreated;
 

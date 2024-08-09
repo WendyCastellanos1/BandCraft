@@ -27,8 +27,8 @@
                         <th><b>Id</b></th>
                         <th><b>Name</b></th>
                         <th><b>Description</b></th>
-                        <th><b>Small Photo URL</b></th>
-                        <th><b>Large Photo URL</b></th>
+                        <th><b>Small Photo</b></th>
+                        <th><b>Large Photo</b></th>
                         <th><b>IsActive</b></th>
                         <th><b>Date Created</b></th>
                         <th><b>Date Updated</b></th>

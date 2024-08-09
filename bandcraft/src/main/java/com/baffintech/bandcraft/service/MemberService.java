@@ -50,8 +50,8 @@ public class MemberService {
         member.setPhoneAlt(form.getPhoneAlt());
         member.setEmailAlt(form.getEmailAlt());
         member.setBio(form.getBio());
-        member.setSpeaksPortuguese(form.getSpeaksPortuguese());
-        member.setSpeaksSpanish(form.getSpeaksSpanish());
+        member.setSpeaksPortuguese(form.isSpeaksPortuguese());
+        member.setSpeaksSpanish(form.isSpeaksSpanish());
         // member.setProfilePhoto(form.getProfilePhoto());                                          // TODO save path name after the file upload
         member.setProfilePhoto("/images/test_photo.jpg");
         member.setSocialMediaUrl(form.getSocialMediaUrl());

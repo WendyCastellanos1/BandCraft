@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-
     @Slf4j
     @Controller
     @RequestMapping("/member")    // part of URL before the jsp page
@@ -82,10 +81,7 @@ import java.util.List;
             } else {
 
                 Member member = memberService.createMember(form);                                     // saves the member to the db
-                //response.setViewName("redirect:/talent/edit?id=" + form.getId());
-               // response.setViewName("redirect:/member/detail/" + member.getId());                    // this is a URL, NOT a view name
-                //response.setViewName("redirect:/" + member.getId());
-                response.setViewName("redirect:/");
+                response.setViewName("redirect:/member/edit?id=" + member.getId());                     // this is a URL, NOT a view name
 
                 return response;
             }
@@ -96,9 +92,9 @@ import java.util.List;
 
             ModelAndView response = new ModelAndView("member/create");
 
-            // load the employee from the database and set the form bean with all the employee value bc form bean is on the JSP page, need to pre-populate the form with the member data
+            // load the member from the database and set the form bean with all the member values bc form bean is on the JSP page, need to pre-populate the form with the member data
             if (id != null) {
-                // we only do this code if we found the talent in the db
+                // bc found member in the db
                 Member member = memberDAO.findById(id);
                 if (member != null) {
                     CreateMemberFormBean form = new CreateMemberFormBean();
@@ -112,11 +108,11 @@ import java.util.List;
                     form.setBio(member.getBio());
                     form.setPhoneCell(member.getPhoneCell());
                     form.setPhoneAlt(member.getPhoneAlt());
-                    form.setProfilePhoto(member.getProfilePhoto());                         // TODO show the path to the file that was uploaded, or show photo via link, better
+                   // form.setProfilePhoto(member.getProfilePhoto());                         // TODO show the path to the file that was uploaded, or show photo via link, better
                     form.setSocialMediaUrl(member.getSocialMediaUrl());
-                    form.setSpeaksPortuguese((member.getSpeaksPortuguese()));
-                    form.setSpeaksSpanish(member.getSpeaksSpanish());
-                    form.setIsBanned(member.getIsBanned());
+                    form.setSpeaksPortuguese(member.isSpeaksPortuguese());
+                    form.setSpeaksSpanish(member.isSpeaksSpanish());
+                    //form.setIsBanned(member.getIsBanned());
                     form.setIsActive(member.getIsActive());
                     form.setDateCreated(member.getDateCreated());
                     form.setDateUpdated(member.getDateUpdated());

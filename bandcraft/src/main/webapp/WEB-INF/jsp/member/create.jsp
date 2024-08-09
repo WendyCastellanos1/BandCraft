@@ -174,7 +174,7 @@
                             <p><b>Birth Generation (Optional):</b></p>
                         </div>
                         <div class="col-4">
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example" name="generation">
                                 <option selected>Select one...</option>
                                 <option value="a">Gen Alpha</option>
                                 <option value="z">Gen Z</option>
@@ -196,22 +196,22 @@
                         <div class="col-4">
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="maleId">
+                                <input class="form-check-input" type="radio" name="gender" id="maleId" value="m">
                                 <label class="form-check-label" for="maleId">
                                     Male
                                 </label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="femaleId">
+                                <input class="form-check-input" type="radio" name="gender" id="femaleId" value="f">
                                 <label class="form-check-label" for="femaleId">
                                     Female
                                 </label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="otherId">
-                                <label class="form-check-label" for="otherId" value="o">
+                                <input class="form-check-input" type="radio" name="gender" id="otherId" value="o">
+                                <label class="form-check-label" for="otherId">
                                     Other
                                 </label>
                             </div>
