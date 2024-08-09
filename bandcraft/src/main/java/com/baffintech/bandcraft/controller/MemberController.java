@@ -1,7 +1,9 @@
 package com.baffintech.bandcraft.controller;
 
 import com.baffintech.bandcraft.database.dao.MemberDAO;
+import com.baffintech.bandcraft.database.entity.Band;
 import com.baffintech.bandcraft.database.entity.Member;
+import com.baffintech.bandcraft.form.CreateBandFormBean;
 import com.baffintech.bandcraft.form.CreateMemberFormBean;
 import com.baffintech.bandcraft.security.AuthenticatedUserUtilities;
 import com.baffintech.bandcraft.service.MemberService;
@@ -17,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-import static org.hibernate.query.sqm.tree.SqmNode.log;
 
     @Slf4j
     @Controller
@@ -26,11 +27,9 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
 
         @Autowired
         private MemberDAO memberDAO;
-        ;
 
         @Autowired
         private MemberService memberService;
-
 
         // listens on url: localhost:8080/member/list
         @GetMapping("/list")
@@ -57,11 +56,9 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
         }
 
         @GetMapping("/create")
-        public ModelAndView create() {
+        public ModelAndView create(@RequestParam(required=false) Integer id) {                                  // this method is setting up the view for rendering
 
-            // this method is setting up the view for rendering
             ModelAndView response = new ModelAndView("member/create");
-
             return response;
         }
 
@@ -69,48 +66,37 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
         public ModelAndView createSubmit(@Valid CreateMemberFormBean form, BindingResult bindingResult) {
 
             ModelAndView response = new ModelAndView();
-            log.debug(form.toString());     // prints the form data to the console using the CreateMemberFormBean form
+            log.debug(form.toString());                                                                         // prints the form data to the console using the CreateMemberFormBean form
+            // note: to become a user, they had a unique email. once authenticated, they can only "become a member" *once* with that email because the role is set upon membership, so role controls menu...no additional attempts to create duplicate possible from member through GUI
 
-            // to become a user, they had a unique email. once authenticated, they can only become a member once with that email because the role is set upon membership, so role controls menu...no additional attempts to create duplicate possible from member through GUI
-
-            //this is a pattern
             if (bindingResult.hasErrors()) {
                 for (ObjectError error : bindingResult.getAllErrors()) {
                     log.debug("Validation error : " + ((FieldError) error).getField() + " = " + error.getDefaultMessage());
                 }
-                response.addObject("bindingResult", bindingResult); // error has occurred;, use on jsp page to show user the errors
-
+                response.addObject("bindingResult", bindingResult);                     // error has occurred;, use on jsp page to show user the errors
                 response.setViewName("member/create");
-
                 response.addObject("form", form);
 
                 return response;
 
             } else {
 
-                Member member = memberService.createMember(form);
-
-                // this is a URL, NOT a view name
-                // in some ways this is overriding the behavior of the setViewName to use a URL rather than a JSP file location
-                //response.setViewName("talent/create");
-
-                // redirecting to the talent detail page, but usually you'd go to fully populated EDIT page, take emp id on url and use it to populate all the fields before rendering
+                Member member = memberService.createMember(form);                                     // saves the member to the db
                 //response.setViewName("redirect:/talent/edit?id=" + form.getId());
-
-                response.setViewName("redirect:/member/detail/" + member.getId());
+               // response.setViewName("redirect:/member/detail/" + member.getId());                    // this is a URL, NOT a view name
+                //response.setViewName("redirect:/" + member.getId());
+                response.setViewName("redirect:/");
 
                 return response;
             }
         }
 
         @RequestMapping(value = "/edit", method = {RequestMethod.GET})
-        public ModelAndView edit(@RequestParam(required = false) Integer id) {
+        public ModelAndView edit(@RequestParam (required = false) Integer id) {
 
-            // by setting required = false on the incoming parameter we allow
             ModelAndView response = new ModelAndView("member/create");
 
-            // load the employee from the database and set the form bean with all the employee values
-            // this is because the form bean is on the JSP page and we need to pre-populate the form with the member data
+            // load the employee from the database and set the form bean with all the employee value bc form bean is on the JSP page, need to pre-populate the form with the member data
             if (id != null) {
                 // we only do this code if we found the talent in the db
                 Member member = memberDAO.findById(id);
@@ -123,11 +109,10 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
                     form.setNickname(member.getNickname());
                     form.setGender(member.getGender());
                     form.setGeneration(member.getGeneration());
-                    form.setGeneration(member.getGeneration());
                     form.setBio(member.getBio());
                     form.setPhoneCell(member.getPhoneCell());
                     form.setPhoneAlt(member.getPhoneAlt());
-                    form.setProfilePhoto(member.getProfilePhoto());      // TODO why does it hate member.getProfilePhoto() ?
+                    form.setProfilePhoto(member.getProfilePhoto());                         // TODO show the path to the file that was uploaded, or show photo via link, better
                     form.setSocialMediaUrl(member.getSocialMediaUrl());
                     form.setSpeaksPortuguese((member.getSpeaksPortuguese()));
                     form.setSpeaksSpanish(member.getSpeaksSpanish());
@@ -153,8 +138,8 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
             // Add the user input back to the model so that we can display the search term in the input field
             response.addObject("searchKey", search);
 
-            List<Member> talents = memberDAO.findByFirstName(search);
-            response.addObject("talentsKey", talents);
+            List<Member> members = memberDAO.findByFirstName(search);
+            response.addObject("membersKey", members);
 
             return response;
         }

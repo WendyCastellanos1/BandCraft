@@ -12,15 +12,14 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-
 public class CreateMemberFormBean {
 
     // our flag: if null, then *create*, if not null, then *edit*
     // this field is ONLY set when user calls the /member/edit URL and gives a valid member id
     private Integer id;     // member id will auto-increment, can't get from reg page until saved
 
-    @NotNull
-    private Integer userId; // this is the logged-in userId of person making their profile
+//    @NotNull
+//    private Integer userId; // this is the logged-in userId of person making their profile
 
     @NotNull
     private User user;
@@ -55,34 +54,26 @@ public class CreateMemberFormBean {
     @NotEmpty(message = "Alternative phone is required.")
     private String phoneAlt;
 
-    // username IS the email.
+    // username IS the email. stored in user table
 
     @Length(max=100, message = "Email must be less than 100 characters")    // this email not encrypted
     private String emailAlt;
 
-    private Byte registrationStatus;
-
-    private Byte isActive;  // TODO deal with in service class
-
-    private LocalDate dateReturning;    // TODO implement later, allow member to go on hiatus
-
-   //  @NotEmpty(message = "Error: speaksSpanish flag not visible to CreateMemberFormBean")
     private Byte speaksSpanish;
-
-    // @NotEmpty(message = "Error: speaksPortuguese flag not visible to CreateMemberFormBean")
     private Byte speaksPortuguese;
 
     private String bio;
     private String profilePhoto;
     private String socialMediaUrl;
 
-    // TODO  this is set by an ADMIN in service
-    private Byte isBanned;
+    private Byte registrationStatus;
+    private LocalDate dateReturning;                                        // TODO implement later, allow member to go on hiatus
+    private Byte isActive;                                                  // TODO deal with in service class
+    private Byte isBanned;                                                  // TODO  this is set by an ADMIN in service
 
-    // @NotEmpty(message = "Error: dateCreated not being passed to CreateMemberFormBean")
     private Instant dateCreated;
-
     private Instant dateUpdated;
+
     private Integer lastUpdatedId;
 
 }

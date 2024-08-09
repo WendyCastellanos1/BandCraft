@@ -12,8 +12,6 @@ public interface MemberDAO extends JpaRepository<Member, Long> {
     Member findById(Integer id);
     Member findByUser(User user);
 
-    // findAll()  TODO
-
     @Query (value = "select m from Member m where m.isActive = 1")
     List<Member> findByActive();
 //    List<Member> findByIsActive(Byte isActive, Pageable pageable);
@@ -33,14 +31,14 @@ public interface MemberDAO extends JpaRepository<Member, Long> {
     //List<Member> findByGender(String gender);
     //List<Member> findByIsActiveAndGender(Byte isActive, String gender, Pageable pageable);
 
-    List<Member> findByGeneration(String generation);
+    //List<Member> findByGeneration(String generation);
     //List<Member> findByIsActiveAndGeneration(Byte isActive, String generation, Pageable pageable);
 
     //List<Member> findByIsActiveAndSpeaksPortuguese  (Byte isActive, Byte speaksPortuguese, Pageable pageable);
 
     //List<Member> findByIsActiveAndSpeaksSpanish(Byte isActive, Byte speaksSpanish, Pageable pageable);
 
-    List<Member> findByIsBanned(Byte isBanned, Pageable pageable);
+    //List<Member> findByIsBanned(Byte isBanned, Pageable pageable);
 
 
 }

@@ -1,8 +1,6 @@
-<!-- goes at TOP -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="../include/header.jsp" />
-
 
 <!-- a page header -->
 <section style="background-color:aquamarine">
@@ -10,7 +8,7 @@
         <div class="row pt-5 pb-5">
             <h1>
                 <c:if test="${empty form.id}">
-                    <h1 class="text-center">Member Profile</h1>
+                    <h1 class="text-center">Create Profile</h1>
                 </c:if>
                 <c:if test="${not empty form.id}">
                     <h1 class="text-center">Edit Profile</h1>
@@ -25,12 +23,13 @@
         <div class="row pt-5 ">
             <div class="col-12">
                 <form action="/member/createSubmit" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="${form.id}">  <!-- id is the member id  -->
+                    <input type="hidden" name="id" value="${form.id}">  <!-- the member id  -->
+
 
                     <!-- firstName input field -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="firstNameId" class="col-form-label">First Name</label>
+                            <label for="firstNameId" class="col-form-label"><b>First Name</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text"
@@ -38,7 +37,7 @@
                                    name="firstName"
                                    class="form-control
                                            <c:if test="${bindingResult.hasFieldErrors('firstName')}">is-invalid</c:if>"
-                                   value="${form.firstName} ">
+                                   value="${form.firstName}">
                         </div>
                     </div>
 
@@ -57,15 +56,15 @@
                     <!-- lastName input field -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="lastNameId" class="col-form-label">Last Name</label>
+                            <label for="lastNameId" class="col-form-label"><b>Last Name</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text"
                                    id="lastNameId"
                                    name="lastName"
                                    class="form-control
-                                        <c:if test="${bindingResult.hasFieldErrors('lastName')}">is-invalid</c:if>"
-                                   value="${form.lastName} ">
+                                           <c:if test="${bindingResult.hasFieldErrors('lastName')}">is-invalid</c:if>"
+                                   value="${form.lastName}">
                         </div>
                     </div>
                     <c:if test="${bindingResult.hasFieldErrors('lastName')}">
@@ -83,7 +82,7 @@
                     <!-- nickname input field -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="nicknameId" class="col-form-label">Nickname</label>
+                            <label for="nicknameId" class="col-form-label"><b>Nickname</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text"
@@ -91,7 +90,7 @@
                                    name="nickname"
                                    class="form-control
                                         <c:if test="${bindingResult.hasFieldErrors('nickname')}">is-invalid</c:if>"
-                                   value="${form.nickname} ">
+                                   value="${form.nickname}">
                         </div>
                     </div>
                     <c:if test="${bindingResult.hasFieldErrors('nickname')}">
@@ -109,7 +108,7 @@
                     <!-- cell phone input field -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="phoneId" class="col-form-label">Cell Phone</label>
+                            <label for="phoneCellId" class="col-form-label"><b>Cell Phone</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text"
@@ -117,7 +116,7 @@
                                    name="phoneCell"
                                    class="form-control
                                         <c:if test="${bindingResult.hasFieldErrors('phoneCell')}">is-invalid</c:if>"
-                                   value="${form.phoneCell} ">
+                                   value="${form.phoneCell}">
                         </div>
                     </div>
                     <c:if test="${bindingResult.hasFieldErrors('phoneCell')}">
@@ -135,7 +134,7 @@
                     <!-- alt cell phone input field -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="phoneAltId" class="col-form-label">Alternative Cell Phone</label>
+                            <label for="phoneAltId" class="col-form-label"><b>Alternative Cell Phone</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text"
@@ -162,75 +161,98 @@
                     <!-- file upload to put a profile photo url in the db   -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="fileId" class="col-form-label">Profile Photo</label>
+                            <label for="fileId" class="col-form-label"><b>Profile Photo</b></label>
                         </div>
                         <div class="col-4">
-                            <input type="file" id="fileId" name="file" class="form-control">
+                            <input type="file" id="fileId" name="profilePhoto" class="form-control">
                         </div>
                     </div>
 
                     <!-- birth generation dropdown(optional)  -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="generationId" class="label_form">Birth Generation (Optional):</label>
+                            <p><b>Birth Generation (Optional):</b></p>
                         </div>
                         <div class="col-4">
-                            <select name="generation" id="generationId">
-                                <option value="ns">Select one...</option>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Select one...</option>
                                 <option value="a">Gen Alpha</option>
                                 <option value="z">Gen Z</option>
-                                <option value="m">Millennial</option>
+                                <option value="m">Millenials</option>
                                 <option value="x">Gen X</option>
-                                <option value="b">Baby Boomer</option>
+                                <option value="b">Baby Boomers</option>
                                 <option value="s">Silent Generation</option>
                             </select>
                         </div>
                     </div>
-                    <!-- generation TODO - Validation for the dropdown -->
 
-                    <!-- gender  -->
+
+                    <!-- gender - 3 radio buttons  -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="genderId" class="label_form">Gender:</label>
+                            <p><b>Gender:</b></p>
                         </div>
+
                         <div class="col-4">
-                            <select name="gender" id="genderId">
-                                <option value="ns">Select one...</option>
-                                <option value="f">Female</option>>
-                                <option value="m">Male</option>
-                                <option value="o">Other</option>
-                            </select>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="maleId">
+                                <label class="form-check-label" for="maleId">
+                                    Male
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="femaleId">
+                                <label class="form-check-label" for="femaleId">
+                                    Female
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="otherId">
+                                <label class="form-check-label" for="otherId" value="o">
+                                    Other
+                                </label>
+                            </div>
+
                         </div>
                     </div>
-                    <!-- gender TODO Validation for dropdown -->
 
                     <!-- gender comment (optional)  -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="genderCommentId" class="label_form">Gender Comment:</label>
+                            <label for="genderCommentId" class="label_form"><b>Gender Comment:</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text" id="genderCommentId" name="genderComment">
                         </div>
                     </div>
 
-
-
-
-                    <!-- gender comment TODO validation: maximum character count -->
-
-
-                    <!-- languages (optional, user may ignore)  -->
-                    <!-- Spanish checkbox -->
+                    <!-- languages (optional, user may ignore)   two checkboxes -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <p>Can you communicate in either of these languages?</p>
+                            <p><b>Can you communicate in either of these languages?</b></p>
                         </div>
+
                         <div class="col-4">
-                            <input type="checkbox" id="speaksSpanishId" name="speaksSpanish" value="speaksSpanish">
-                            <label for="speaksSpanishId" class="label_form">Spanish</label>
-                            <input type="checkbox"  id="speaksPortugueseId" name="speaksPortuguese" value="speaksPortuguese">
-                            <label for="speaksPortugueseId" class="label_form">Portuguese</label>
+
+                            <!-- Spanish checkbox -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="speaksSpanish" id="speaksSpanishId">
+                                <label class="form-check-label" for="speaksSpanishId">
+                                    Spanish
+                                </label>
+                            </div>
+
+                            <!-- Portuguese checkbox -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="speaksPortuguese" id="speaksPortugueseId">
+                                <label class="form-check-label" for="speaksPortugueseId">
+                                    Portuguese
+                                </label>
+                            </div>
+
                         </div>
                     </div>
 
@@ -238,7 +260,7 @@
                     <!-- Bio textarea field -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="bioId" class="label_form">Tell us about yourself (bio): </label><br>
+                            <label for="bioId" class="label_form"><b>Tell us about yourself (bio):</b> </label><br>
                         </div>
                         <div class="col-4">
                             <textarea maxlength = "1000" id="bioId" name = "bio" rows = "4" cols = "40"> </textarea><br>
@@ -248,18 +270,17 @@
                     <!-- Social Media URL  input field (optional, user may ignore, may not have) -->
                     <div class="row align-items-center justify-content-center pt-3">
                         <div class="col-2">
-                            <label for="socialMediaUrlId" class="col-form-label">Link to your public-facing social media account</label>
+                            <label for="socialMediaUrlId" class="col-form-label"><b>Link for your public-facing social media account</b></label>
                         </div>
                         <div class="col-4">
                             <input type="text" id="socialMediaUrlId" name="socialMediaUrl">
                         </div>
                     </div>
 
-
                     <!-- submit button for the form -->
                     <div class="row justify-content-center pt-3 ">
                         <div class="col-auto text-center">
-                            <button type="submit" class="btn btn-primary">Next</button>
+                            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
                         </div>
                     </div>
                 </form>

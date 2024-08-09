@@ -1,6 +1,8 @@
 package com.baffintech.bandcraft.form;
 
+import com.baffintech.bandcraft.database.entity.Band;
 import com.baffintech.bandcraft.database.entity.BandDetail;
+
 import lombok.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
@@ -15,7 +17,7 @@ import java.util.Set;
 @ToString
 public class CreateBandFormBean {
 
-    // JSR-303 specification (what these annotations are called...for validation process..created by Hibernate people originally to be done on entity, but entity was too late of a check, better before controller!
+    // JSR-303 specification (annotations...for validation process..created by Hibernate people originally to be done on entity, but entity was too late of a check, better to validate BEFORE controller!
 
     // this field is ONLY set when user calls the /band/edit URL and gives a valid band id
     // it's our flag: if null, then *create*, if not null, then *edit*
@@ -23,8 +25,8 @@ public class CreateBandFormBean {
 
     private Integer eventId;
 
-    // not available to do UNTIL the band is saved, the member-talents are mapped to it, then this field can be updated, so has to be allowed NULl until those steps done
-    //@NotEmpty(message = "Lead member is required.")     //TODO make FK to memberId in db and JPA
+    // not available to do UNTIL the band members are selected on GUI, and one is flagged as leader, the member-talents are mapped to it, then this field can be updated, so has to be allowed NULl until those steps done
+    @NotEmpty(message = "Lead member is required.")     //TODO make FK to memberId in db and JPA
     private Integer leadMemberId;
 
     @NotEmpty(message = "Is-single-use is required.")
