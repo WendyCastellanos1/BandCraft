@@ -175,13 +175,7 @@
                         </div>
                         <div class="col-4">
                             <select class="form-select" aria-label="Default select example" name="generation">
-                                <option selected>Select one...</option>
-                                <option value="a">Gen Alpha</option>
-                                <option value="z">Gen Z</option>
-                                <option value="m">Millenials</option>
-                                <option value="x">Gen X</option>
-                                <option value="b">Baby Boomers</option>
-                                <option value="s">Silent Generation</option>
+                                ${generationOptionsKey}
                             </select>
                         </div>
                     </div>
@@ -196,28 +190,48 @@
                         <div class="col-4">
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="maleId" value="m">
+                                <input class = "form-check-input"
+                                       type="radio"
+                                       name="gender"
+                                       id="maleId"
+                                       value="m"
+                                       <c:if test = "${form.gender == 'm'}">checked="checked"</c:if>
+                                >
                                 <label class="form-check-label" for="maleId">
                                     Male
                                 </label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="femaleId" value="f">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       id="femaleId"
+                                       value="f"
+                                       name="gender"
+                                       <c:if test = "${form.gender == 'f'}">checked="checked"</c:if>
+                                >
                                 <label class="form-check-label" for="femaleId">
                                     Female
                                 </label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="otherId" value="o">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       id="otherId"
+                                       value="o"
+                                       name="gender"
+                                       <c:if test = "${form.gender == 'o'}">checked="checked"</c:if>
+                                >
                                 <label class="form-check-label" for="otherId">
                                     Other
                                 </label>
+
                             </div>
 
                         </div>
                     </div>
+
 
                     <!-- gender comment (optional)  -->
                     <div class="row align-items-center justify-content-center pt-3">
@@ -225,9 +239,27 @@
                             <label for="genderCommentId" class="label_form"><b>Gender Comment:</b></label>
                         </div>
                         <div class="col-4">
-                            <input type="text" id="genderCommentId" name="genderComment">
+                            <input type="text"
+                                   id="genderCommentId"
+                                   name="genderComment"
+                                   class="form-control
+                                        <c:if test="${bindingResult.hasFieldErrors('genderComment')}">is-invalid</c:if>"
+                                        value="${form.genderComment}"
+                                    >
                         </div>
                     </div>
+                    <c:if test="${bindingResult.hasFieldErrors('genderComment')}">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="offset-2 col-4">
+                            <div style="color:red">
+                                <c:forEach items="${bindingResult.getFieldErrors('genderComment')}" var="error">
+                                    ${error.defaultMessage}<br>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                    </c:if>
+
 
                     <!-- languages (optional, user may ignore)   two checkboxes -->
                     <div class="row align-items-center justify-content-center pt-3">
@@ -239,7 +271,12 @@
 
                             <!-- Spanish checkbox -->
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="speaksSpanish" id="speaksSpanishId">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="speaksSpanishId"
+                                       name="speaksSpanish"
+                                        <c:if test="${form.speaksSpanish}"> checked</c:if>
+                                >
                                 <label class="form-check-label" for="speaksSpanishId">
                                     Spanish
                                 </label>
@@ -247,7 +284,13 @@
 
                             <!-- Portuguese checkbox -->
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="speaksPortuguese" id="speaksPortugueseId">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="speaksPortugueseId"
+                                       name="speaksPortuguese"
+                                        <c:if test="${form.speaksPortuguese}"> checked</c:if>
+                                >
+
                                 <label class="form-check-label" for="speaksPortugueseId">
                                     Portuguese
                                 </label>
@@ -263,8 +306,27 @@
                             <label for="bioId" class="label_form"><b>Tell us about yourself (bio):</b> </label><br>
                         </div>
                         <div class="col-4">
-                            <textarea maxlength = "1000" id="bioId" name = "bio" rows = "4" cols = "40"> </textarea><br>
+                            <textarea style="text-align: left; vertical-align: top;"
+                                      maxlength = "1000"
+                                      id="bioId"
+                                      rows = "5" cols = "40"
+                                      name = "bio"
+                                      <c:if test="${bindingResult.hasFieldErrors('bio')}">is-invalid</c:if>
+                            >${form.bio}
+                            </textarea><br>
                         </div>
+
+                        <c:if test="${bindingResult.hasFieldErrors('bio')}">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="offset-2 col-4">
+                                    <div style="color:red">
+                                        <c:forEach items="${bindingResult.getFieldErrors('bio')}" var="error">
+                                            ${error.defaultMessage}<br>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
                     </div>
 
                     <!-- Social Media URL  input field (optional, user may ignore, may not have) -->
@@ -273,7 +335,26 @@
                             <label for="socialMediaUrlId" class="col-form-label"><b>Link for your public-facing social media account</b></label>
                         </div>
                         <div class="col-4">
-                            <input type="text" id="socialMediaUrlId" name="socialMediaUrl">
+                            <input type="text"
+                                   id="socialMediaUrlId"
+                                   name="socialMediaUrl"
+                                   class="form-control
+                                           <c:if test="${bindingResult.hasFieldErrors('socialMediaUrl')}">is-invalid</c:if>"
+                                   value="${form.socialMediaUrl}"
+                            >
+                        </div>
+                    </div>
+                    <c:if test="${bindingResult.hasFieldErrors('socialMediaUrl')}">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="offset-2 col-4">
+                            <div style="color:red">
+                                <c:forEach items="${bindingResult.getFieldErrors('socialMediaUrl')}" var="error">
+                                    ${error.defaultMessage}<br>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                    </c:if>
                         </div>
                     </div>
 

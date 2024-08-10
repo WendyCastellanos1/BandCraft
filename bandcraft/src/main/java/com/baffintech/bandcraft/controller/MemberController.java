@@ -80,8 +80,12 @@ import java.util.List;
 
             } else {
 
-                Member member = memberService.createMember(form);                                     // saves the member to the db
-                response.setViewName("redirect:/member/edit?id=" + member.getId());                     // this is a URL, NOT a view name
+                Member member = memberService.createMember(form);                                           // saves the member to the db
+
+                String generationOptions = memberService.generationOptionsBuild(member.getGeneration());    // sub in the options list, "selected" has been inserted in the correct option
+                response.addObject("generationOptionsKey", generationOptions);
+
+                response.setViewName("redirect:/member/edit?id=" + member.getId());                          // this is a URL, NOT a view name
 
                 return response;
             }
@@ -94,7 +98,6 @@ import java.util.List;
 
             // load the member from the database and set the form bean with all the member values bc form bean is on the JSP page, need to pre-populate the form with the member data
             if (id != null) {
-                // bc found member in the db
                 Member member = memberDAO.findById(id);
                 if (member != null) {
                     CreateMemberFormBean form = new CreateMemberFormBean();
@@ -103,22 +106,32 @@ import java.util.List;
                     form.setFirstName(member.getFirstName());
                     form.setLastName(member.getLastName());
                     form.setNickname(member.getNickname());
+
+                    String generationOptions = memberService.generationOptionsBuild(member.getGeneration());    // sub in the options list, "selected" has been inserted in the correct option
+
                     form.setGender(member.getGender());
-                    form.setGeneration(member.getGeneration());
+                    form.setGenderComment(member.getGenderComment());
+
                     form.setBio(member.getBio());
                     form.setPhoneCell(member.getPhoneCell());
                     form.setPhoneAlt(member.getPhoneAlt());
                    // form.setProfilePhoto(member.getProfilePhoto());                         // TODO show the path to the file that was uploaded, or show photo via link, better
                     form.setSocialMediaUrl(member.getSocialMediaUrl());
-                    form.setSpeaksPortuguese(member.isSpeaksPortuguese());
-                    form.setSpeaksSpanish(member.isSpeaksSpanish());
-                    //form.setIsBanned(member.getIsBanned());
-                    form.setIsActive(member.getIsActive());
+
+                    if (member.isSpeaksSpanish()) {
+                        form.setSpeaksSpanish(true);                                           // it's true, so add the word "checked" in the checkbox code on the jsp page
+                    }
+
+                    if (member.isSpeaksPortuguese()){
+                        form.setSpeaksPortuguese(true);                                          // it's true, so add the word "checked" in the checkbox code on jsp page
+                    }
+
                     form.setDateCreated(member.getDateCreated());
                     form.setDateUpdated(member.getDateUpdated());
                     form.setLastUpdatedId(member.getLastUpdatedId());
 
                     response.addObject("form", form);
+                    response.addObject("generationOptionsKey", generationOptions);
                 }
             }
             return response;

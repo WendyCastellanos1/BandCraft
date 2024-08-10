@@ -26,19 +26,14 @@
                         <th><b>Id</b></th>
                         <th><b>First Name</b></th>
                         <th><b>Last Name</b></th>
-
                         <th><b>Cell Phone</b></th>
-
-
                         <th><b>Gender</b></th>
                         <th><b>Gender Comment</b></th>
-                        <th><b>Gen- eration</b></th>
-                        <th><b>Bio</b></th>
+                        <th><b>Generation</b></th>
+                        <th><b>Biography</b></th>
                         <th><b>Spanish</b></th>
                         <th><b>Portuguese</b></th>
-
-
-                        <th><b>IsActive</b></th>
+                        <!-- <th><b>IsActive</b></th>  -->
                         <th><b>Date Created</b></th>
                         <th><b>Date Updated</b></th>
                         <th><b>Last Updated Id</b></th>
@@ -50,19 +45,14 @@
                             <td><a href="../member/${member.id}">${member.id}</a></td>
                             <td>${member.firstName}</td>
                             <td>${member.lastName}</td>
-
                             <td>${member.phoneCell}</td>
-
-
                             <td>${member.gender}</td>
                             <td>${member.genderComment}</td>
                             <td>${member.generation}</td>
                             <td>${member.bio}</td>
-                            <td>${member.spanish}</td>
-                            <td>${member.portuguese}</td>
-
-
-                            <td>${member.isActive}</td>
+                            <td>${member.speaksSpanish}</td>
+                            <td>${member.speaksPortuguese}</td>
+                            <!-- <td>$ {member.isActive}</td>  -->
                             <td>${member.dateCreated}</td>
                             <td>${member.dateUpdated}</td>
                             <td>${member.lastUpdatedId}</td>

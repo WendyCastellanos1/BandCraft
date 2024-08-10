@@ -57,6 +57,12 @@
                         </li>
                     </sec:authorize>
 
+<%--                    <sec:authorize access="hasAnyAuthority('MEMBER')">--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link" href="/member/edit">Edit Profile</a>--%>
+<%--                        </li>--%>
+<%--                    </sec:authorize>--%>
+
                     <sec:authorize access="hasAnyAuthority('ADMIN')">
 
                         <li class="nav-item">

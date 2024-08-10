@@ -44,7 +44,7 @@ public class TalentController {
         //this is a stream with a lambda function
         log.debug("*****************stream********************");
         talents.stream().forEach(talent -> {
-           log.debug("Product: " + talent.getName());
+           log.debug("Talent: " + talent.getName());
         });
 
         // is same as above

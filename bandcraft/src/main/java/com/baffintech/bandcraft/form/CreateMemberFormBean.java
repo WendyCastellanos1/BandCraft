@@ -60,14 +60,16 @@ public class CreateMemberFormBean {
     private MultipartFile profilePhoto;
     private String socialMediaUrl;
 
-    private Byte registrationStatus;
-    private LocalDate dateReturning;                                        // TODO implement later, allow member to go on hiatus
-    private Byte isActive;                                                  // TODO deal with in service class
-   // private Byte isBanned;                                                  // TODO  this is set by an ADMIN in service
-
     private Instant dateCreated;
     private Instant dateUpdated;
 
     private Integer lastUpdatedId;
+
+   // private Byte registrationStatus;
+    // private LocalDate dateReturning;                                        // TODO implement later, allow member to go on hiatus
+   // private boolean isActive;                                                  // TODO deal with in service class
+   // private Byte isBanned;                                                  // TODO  this is set by an ADMIN in service
+
+
 
 }

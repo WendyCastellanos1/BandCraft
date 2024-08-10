@@ -96,17 +96,9 @@ public class Member {
 
     @Column(name = "registration_status")                               // TODO implement process LATER
     private Byte registrationStatus;
-    @ColumnDefault("0")
-    @Column(name = "is_active", nullable = false)
-    private Byte isActive;
 
     @Column(name = "date_returning")
     private LocalDate dateReturning;
-
-//    @ColumnDefault("-1")
-//    @Column(name = "is_banned")
-//    private Byte isBanned;
-
 
     @Column(name = "date_created", nullable = false)
     private Instant dateCreated;
@@ -128,3 +120,15 @@ public class Member {
     //private Set<MemberEventType> memberEventTypesSet = new LinkedHashSet<>();
     //private List<MemberEventType> memberEventTypesList = new ArrayList<MemberEventType>();
 
+//    @ColumnDefault("0")
+//    @Column(name = "is_active")
+//    private boolean isActive;
+
+//    @ColumnDefault("0")
+//    @Column(name = "is_active")
+//    private boolean isActive;
+
+
+//    @ColumnDefault("-1")
+//    @Column(name = "is_banned")
+//    private Byte isBanned;

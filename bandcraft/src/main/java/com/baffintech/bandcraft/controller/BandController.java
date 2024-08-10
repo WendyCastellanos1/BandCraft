@@ -1,10 +1,12 @@
 package com.baffintech.bandcraft.controller;
 
 import com.baffintech.bandcraft.database.dao.BandDAO;
-import com.baffintech.bandcraft.database.entity.Band;
-import com.baffintech.bandcraft.database.entity.Talent;
+import com.baffintech.bandcraft.database.dao.BandDetailDAO;
+import com.baffintech.bandcraft.database.dao.MemberTalentDAO;
+import com.baffintech.bandcraft.database.entity.*;
 import com.baffintech.bandcraft.form.CreateBandFormBean;
 import com.baffintech.bandcraft.form.CreateTalentFormBean;
+import com.baffintech.bandcraft.security.AuthenticatedUserUtilities;
 import com.baffintech.bandcraft.service.BandService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,15 @@ public class BandController {
 
     @Autowired
     private BandService bandService;
+
+    @Autowired
+    private BandDetailDAO bandDetailDAO;
+
+    @Autowired
+    private MemberTalentDAO memberTalentDAO;
+
+    @Autowired
+    AuthenticatedUserUtilities authenticatedUserUtilities;
 
     @GetMapping("/create")
     public ModelAndView createBand(@RequestParam (required=false) Integer id) {
@@ -91,6 +102,36 @@ public class BandController {
 
                 response.addObject("form", form);
             }
+        }
+        return response;
+    }
+
+    // TODO Note: this is an intermediary variant from order/add to cart class demo
+    //          This will add ONE memberTalent to the band at a time!!
+    //          Consider change: pass in a set of memberTalents. loop through and add each to the band
+    @GetMapping("/addToBand")
+    public ModelAndView addToBand(@RequestParam  (required = false) Integer bandId, Integer memberTalentId) {
+
+        ModelAndView response = new ModelAndView("band/bandDetail");
+
+        MemberTalent memberTalent = memberTalentDAO.findById(memberTalentId);
+        Band band = bandDAO.findById(bandId);
+
+        User user = authenticatedUserUtilities.getCurrentUser();
+
+
+        // now we need to check if this MemberTalent is already in the band
+        BandDetail bandDetail = bandDetailDAO.isMemberTalentInBand(bandId, memberTalentId);
+        if (bandDetail == null){
+
+            log.info("bandId: " + bandId);
+
+            // make the new band detail and save
+            bandDetail = new BandDetail();
+            bandDetail.setBand(band);
+            bandDetail.setMemberTalent(memberTalent);
+
+            bandDetailDAO.save(bandDetail);
         }
         return response;
     }

@@ -25,7 +25,6 @@ public class Band {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @NotNull
     @Column(name = "event_id", nullable = false)
     private Integer eventId;
 
@@ -33,17 +32,14 @@ public class Band {
     @Column(name = "lead_member_id")        // don't think I'll need the nullable=false unless for magic reason
     private Integer leadMemberId;
 
-    @NotNull
     @ColumnDefault("0")
     @Column(name = "is_single_use", nullable = false)
     private Byte isSingleUse;
 
-    @NotNull
     @ColumnDefault("0")
     @Column(name = "is_active", nullable = false)
     private Byte isActive;
 
-    @NotNull
     @Column(name = "date_created", nullable = false)
     private Instant dateCreated;
 
