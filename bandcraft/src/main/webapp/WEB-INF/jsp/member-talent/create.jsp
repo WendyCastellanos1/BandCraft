@@ -24,7 +24,7 @@
             <div class="col-12">
                 <form action="../member-talent/createSubmit" method="get">
                     <input type="hidden" name="id" value="${memberIdKey}">  <!-- the member id  -->
-                    <h3 >Member Id ${memberIdKey}:  Select the talents you are willing to use in the band</h3>
+                    <h3 style="text-align: center" >Member Id ${memberIdKey}:  Select the talents you are willing to use in the band</h3>
                     <h4 class="text-center">${talentsKey.size()} result(s)</h4>
                 </form>
             </div>
@@ -37,8 +37,9 @@
                         <th><b>Name</b></th>
                         <th><b>Description</b></th>
                         <!-- <th><b>Order of Preference</b></th> -->
+                        <th><b>Status</b></th>
+                        <th><b>Links</b></th>
 
-                        <th><b>Select</b></th>
                     </tr>
 
                     <c:forEach items="${talentsKey}" var="talent">
@@ -49,17 +50,15 @@
                             <!-- TODO order of preference functionality -->
 
                             <c:choose>
-                                <c:when test="${existingMemberTalentsKey.contains(talent.id)}">
-                                    <!-- display message -->
-                                    already selected
+                                <c:when test="${talent.isMapped}">
+                                    <td>already selected</td>
+                                    <td>----------</td>
                                 </c:when>
                                 <c:otherwise>
-                                    <!-- display link -->
-                                    <!-- new mapping, so do the save and return to this create page (with talents list)-->
-                                    <td><a href="../member-talent/createSubmit?memberId=${memberIdKey}&talentId=${talent.id}">add this talent</a></td>
+                                    <td>available</td>
+                                    <td><a href="../member-talent/createSubmit?memberId=${memberIdKey}&talentId=${talent.id}">Add Talent</a></td>
                                 </c:otherwise>
                             </c:choose>
-
                         </tr>
                     </c:forEach>
 

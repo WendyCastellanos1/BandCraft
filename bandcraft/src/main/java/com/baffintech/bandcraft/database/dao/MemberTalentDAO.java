@@ -16,6 +16,7 @@ public interface MemberTalentDAO extends JpaRepository<MemberTalent, Long> {
 
 
     List<MemberTalent> findByMember(Member member);
+    @Query(value="select * from member_talents where member_id = :memberId", nativeQuery = true)
     List<MemberTalent> findByMemberId(Integer memberId);      // get member-talent mappings for a specific *member* (not checking if member isActive)
 
     List<MemberTalent> findByTalent(Talent talent);

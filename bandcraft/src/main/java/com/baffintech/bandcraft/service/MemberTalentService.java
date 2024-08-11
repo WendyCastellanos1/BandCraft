@@ -2,6 +2,7 @@ package com.baffintech.bandcraft.service;
 
 import com.baffintech.bandcraft.database.entity.MemberTalent;
 import com.baffintech.bandcraft.database.dao.MemberTalentDAO;
+import com.baffintech.bandcraft.dto.TalentWithMemberStatusDTO;
 import com.baffintech.bandcraft.form.CreateMemberTalentFormBean;
 
 import com.baffintech.bandcraft.database.entity.Member;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -68,6 +71,37 @@ public class MemberTalentService {
         log.debug("memberTalent created:" + memberTalent.toString());
         return memberTalent;
 
-    }
+        }
 
+    public List<TalentWithMemberStatusDTO> buildCustomTalentListForFormByMember(Integer memberId) {
+
+       // make the "custom" talent list (DTO) to pass to the view
+        List<TalentWithMemberStatusDTO> talentsDTO = new ArrayList<>();
+
+        // make a "generic" talent list using the talent entity and DAO
+        List<Talent> talents = talentDAO.findAll();
+
+        // loop to  map the data from the "pure talent" to the "custom DTO talent"
+        for  (Talent talent : talents){
+            // map the actual talent data to the DTO fields
+            TalentWithMemberStatusDTO talentDTO = new TalentWithMemberStatusDTO();
+            talentDTO.setId(talent.getId());
+            talentDTO.setName(talent.getName());
+            talentDTO.setDescription(talent.getDescription());
+
+            //find out if this "pure talent" is already mapped to "this" member
+            MemberTalent memberTalent = memberTalentDAO.findByMemberIdAndTalentId(memberId, talent.getId());
+            if (memberTalent == null) {
+                // the "pure talent" is NOT mapped to this member, so we'll set the flag so jstl can sub in message "available"
+                talentDTO.setIsMapped(false);
+            }else {
+                // the "pure talent" is ALREADY mapped to this member, so we'll mark it as "already selected"
+                talentDTO.setIsMapped(true);
+            }
+
+            // add the "custom talent" to its "custom list (DTO)"
+            talentsDTO.add(talentDTO);
+        }
+        return talentsDTO;
+    }
 }

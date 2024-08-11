@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -26,7 +27,6 @@ public class CreateTalentFormBean {
     @NotEmpty(message="Talent description is required.")
     private String description;
 
-
     private String urlSmallPhoto;
     private String urlLargePhoto;
 
@@ -39,6 +39,12 @@ public class CreateTalentFormBean {
 
     private Integer lastUpdatedId;
 
-    private Set<MemberTalent> memberTalents;
+    // for form bean convenience: chould be used to show all the members that have the one talent?, once used.
+    private Set<MemberTalent> memberTalentsSet;
+    private List<MemberTalent> memberTalentsList;
+
+    private boolean isSelected;     //added field, not in db, for form bean
+
+
 
 }

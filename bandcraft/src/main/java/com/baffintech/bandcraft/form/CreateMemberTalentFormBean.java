@@ -9,7 +9,9 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -41,6 +43,10 @@ public class CreateMemberTalentFormBean {
     private Instant dateUpdated;
 
     private Integer lastUpdatedId;
+
+    private List<Talent> talentsWithMemberChoiceForForm;
+
+
 
     // TODO: not implemented yet: allow member to rank their talents in order of preference after all are chosen
   //  private Byte preferenceRanking;

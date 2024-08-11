@@ -7,6 +7,7 @@ import com.baffintech.bandcraft.database.entity.Band;
 import com.baffintech.bandcraft.database.entity.Member;
 import com.baffintech.bandcraft.database.entity.MemberTalent;
 import com.baffintech.bandcraft.database.entity.Talent;
+import com.baffintech.bandcraft.dto.TalentWithMemberStatusDTO;
 import com.baffintech.bandcraft.form.CreateBandFormBean;
 import com.baffintech.bandcraft.form.CreateMemberFormBean;
 import com.baffintech.bandcraft.form.CreateMemberTalentFormBean;
@@ -80,12 +81,15 @@ public class MemberTalentController {
 
         if (memberId == null) {     //e.g. lost, weird navigation
             Member member = new Member();
+            //shouldn't need this for a fresh create talent list (all talents should appear available for a new member)
             member = memberDAO.findByUser(authenticatedUserUtilities.getCurrentUser());
 
             ModelAndView response = new ModelAndView("member-talent/create");
 
+            // TODO determine if only fresh create goes through here, or ?
             List<Talent> talents = talentDAO.findAll();
             response.addObject("talentsKey", talents);
+
             return response;
 
         } else {
@@ -93,11 +97,9 @@ public class MemberTalentController {
 
             response.addObject("memberIdKey", memberId);
 
-            List<Talent> talents = talentDAO.findAll();
+           // we have memberId, so we can "mark" each "custom talent record" with a special temp attribute, to show on the form to indicate if the talent is actionable by this member
+            List<TalentWithMemberStatusDTO> talents = memberTalentService.buildCustomTalentListForFormByMember(memberId);
             response.addObject("talentsKey", talents);
-
-            List<MemberTalent> existingMemberTalents = memberTalentDAO.findByMemberId(memberId);
-            response.addObject("existingMemberTalentsKey", existingMemberTalents);
 
             return response;
         }
