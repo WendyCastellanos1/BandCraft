@@ -24,8 +24,8 @@
             <div class="col-12">
                 <form action="../member-talent/createSubmit" method="get">
                     <input type="hidden" name="id" value="${memberIdKey}">  <!-- the member id  -->
-                    <h3 style="text-align: center" >Member Id ${memberIdKey}:  Select the talents you are willing to use in the band</h3>
-                    <h4 class="text-center">${talentsKey.size()} result(s)</h4>
+                    <h4 style="text-align: center; color:saddlebrown" >Member Id ${memberIdKey}:  Select the talents you are willing to use in the band</h4>
+                    <h5 class="text-center" style="color:lightseagreen;">${talentsKey.size()} result(s)</h5>
                 </form>
             </div>
         </div>
@@ -38,8 +38,7 @@
                         <th><b>Description</b></th>
                         <!-- <th><b>Order of Preference</b></th> -->
                         <th><b>Status</b></th>
-                        <th><b>Links</b></th>
-
+                        <th><b>Action</b></th>
                     </tr>
 
                     <c:forEach items="${talentsKey}" var="talent">
@@ -51,11 +50,11 @@
 
                             <c:choose>
                                 <c:when test="${talent.isMapped}">
-                                    <td>already selected</td>
+                                    <td style="color:mediumpurple; font-style:italic;">already selected</td>
                                     <td>----------</td>
                                 </c:when>
                                 <c:otherwise>
-                                    <td>available</td>
+                                    <td style="color:green;">available</td>
                                     <td><a href="../member-talent/createSubmit?memberId=${memberIdKey}&talentId=${talent.id}">Add Talent</a></td>
                                 </c:otherwise>
                             </c:choose>
