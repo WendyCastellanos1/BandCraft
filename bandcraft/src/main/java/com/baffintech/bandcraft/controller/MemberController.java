@@ -58,6 +58,10 @@ import java.util.List;
         public ModelAndView create(@RequestParam(required=false) Integer id) {                                  // this method is setting up the view for rendering
 
             ModelAndView response = new ModelAndView("member/create");
+
+            String generationOptions = memberService.generationOptionsBuild("u");
+            response.addObject("generationOptionsKey", generationOptions);
+
             return response;
         }
 
@@ -82,10 +86,11 @@ import java.util.List;
 
                 Member member = memberService.createMember(form);                                           // saves the member to the db
 
-                String generationOptions = memberService.generationOptionsBuild(member.getGeneration());    // sub in the options list, "selected" has been inserted in the correct option
-                response.addObject("generationOptionsKey", generationOptions);
+                //String generationOptions = memberService.generationOptionsBuild(member.getGeneration());    // sub in the options list, "selected" has been inserted in the correct option
+                //response.addObject("generationOptionsKey", generationOptions);
 
-                response.setViewName("redirect:/member/edit?id=" + member.getId());                          // this is a URL, NOT a view name
+                //response.setViewName("redirect:/member/edit?id=" + member.getId());                          // this is a URL, NOT a view name
+                response.setViewName("redirect:/member-talent/create?memberId=" + member.getId());             // this is a URL, NOT a view name
 
                 return response;
             }

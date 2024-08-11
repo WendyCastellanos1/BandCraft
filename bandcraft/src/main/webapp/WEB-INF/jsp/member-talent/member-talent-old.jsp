@@ -29,7 +29,6 @@
                     <div><p><h3>My Favorite Talents:</h3></div>        <!-- TODO look bad  -->
 
                     <!-- languages (optional, user may ignore)  -->
-                    <!-- Spanish checkbox -->
                     <div class="row align-items-center justify-content-center pt-3">
 
                         <div class="col-2">

@@ -2,10 +2,11 @@ package com.baffintech.bandcraft.service;
 
 import com.baffintech.bandcraft.database.entity.Talent;
 import com.baffintech.bandcraft.database.dao.TalentDAO;
-import com.baffintech.bandcraft.database.entity.User;
 import com.baffintech.bandcraft.form.CreateTalentFormBean;
 
+import com.baffintech.bandcraft.database.entity.User;
 import com.baffintech.bandcraft.security.AuthenticatedUserUtilities;
+
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

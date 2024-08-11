@@ -36,35 +36,38 @@ public class CreateMemberTalentFormBean {
     @NotEmpty
     private Talent talent;
 
-    // not implemented yet: allow member to rank their talents in order of preference after all are chosen
-    private Byte preferenceRanking;
-
-    private Byte canImprov;
-
-    private Byte readsChordCharts;
-
-    private Byte sightReadsThisTalent;
-
-    private Character key1Preferred;
-
-    private Character key2Preferred;
-
-    private Character key1Harmony;
-
-    private Character key1Avoid;
-
-    private Byte hasProcessor;
-
-    private String processorComments;
-
-    private Byte needsLoanerInstrument;
-
     private Instant dateCreated;
 
     private Instant dateUpdated;
 
     private Integer lastUpdatedId;
 
-    private Set<BandDetail> bandDetails = new LinkedHashSet<>();    // all mappings of this member-talent in existing band configurations as a band detail
+    // TODO: not implemented yet: allow member to rank their talents in order of preference after all are chosen
+  //  private Byte preferenceRanking;
+
+//    // implement these later
+//    private Byte canImprov;
+//
+//    private Byte readsChordCharts;
+//
+//    private Byte sightReadsThisTalent;
+//
+//    private Character key1Preferred;
+//
+//    private Character key2Preferred;
+//
+//    private Character key1Harmony;
+//
+//    private Character key1Avoid;
+//
+//    private Byte hasProcessor;
+//
+//    private String processorComments;
+//
+//    private Byte needsLoanerInstrument;
+
+
+//
+//    private Set<BandDetail> bandDetails = new LinkedHashSet<>();    // all mappings of this member-talent in existing band configurations as a band detail
 
 }

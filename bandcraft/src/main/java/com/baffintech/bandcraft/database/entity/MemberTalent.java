@@ -3,9 +3,7 @@ package com.baffintech.bandcraft.database.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -18,13 +16,12 @@ import java.util.Set;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "member_talents", indexes = {
-        @Index(name = "last_updated_id_idx", columnList = "id, last_updated_id"),
-        @Index(name = "member_id_idx", columnList = "member_id"),
-        @Index(name = "talent_id_idx", columnList = "talent_id")
-})
+@Table(name = "member_talents")
+
 public class MemberTalent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,12 +44,12 @@ public class MemberTalent {
     @JoinColumn(name = "talent_id", nullable = false)
     private Talent talent;
 
-    @NotNull
+    // @NotNull
     @ColumnDefault("0")
     @Column(name = "preference_ranking", nullable = false)
     private Byte preferenceRanking;                                 // TODO member numbers talents by preference, LATER
 
-    @NotNull
+   // @NotNull
     @ColumnDefault("0")
     @Column(name = "can_improv", nullable = false)
     private Byte canImprov;
@@ -101,7 +98,7 @@ public class MemberTalent {
     @Column(name = "needs_loaner_instrument")
     private Byte needsLoanerInstrument;
 
-    @NotNull
+    // @NotNull
     @Column(name = "date_created", nullable = false)
     private Instant dateCreated;
 

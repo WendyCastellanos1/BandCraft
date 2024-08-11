@@ -67,7 +67,7 @@ public class CreateMemberFormBean {
 
    // private Byte registrationStatus;
     // private LocalDate dateReturning;                                        // TODO implement later, allow member to go on hiatus
-   // private boolean isActive;                                                  // TODO deal with in service class
+   // private boolean isActive;                                                // TODO deal with in service class
    // private Byte isBanned;                                                  // TODO  this is set by an ADMIN in service
 
 
