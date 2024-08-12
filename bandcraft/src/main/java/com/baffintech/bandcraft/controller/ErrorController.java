@@ -1,7 +1,10 @@
 package com.baffintech.bandcraft.controller;
 
+import com.baffintech.bandcraft.config.MyInterceptor;
+import com.baffintech.bandcraft.database.dao.UserDAO;
 import com.baffintech.bandcraft.security.AuthenticatedUserUtilities;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,18 @@ public class ErrorController {
     @Autowired
     private AuthenticatedUserUtilities authenticatedUserUtilities;
 
+    @Autowired
+    private UserDAO userDAO;
+
+    @Autowired
+    private MyInterceptor myInterceptor;
+
+    @Autowired
+    private HttpServletRequest httpServletRequest;
+
+    @Autowired
+    private HttpServletResponse httpServletResponse;
+
     // the @ControllerAdvice annotation is used to define as an exception handler
 
     // this is optional ... im just showing you some things .. this is a catch-all bucket for 404 errors
@@ -32,6 +47,11 @@ public class ErrorController {
     public ModelAndView error404(HttpServletRequest request) {
         // This is used in the security config for 404 pages
         ModelAndView response = new ModelAndView("error/404");
+
+        //+++++++ Interceptor ++++
+        Object handler = new Object();
+        myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
+
 
         log.debug("!!!!!!!!!!!!!!!!!! IN ERROR CONTROLLER : 404 NOT FOUND : " + request.getMethod() + " " + request.getRequestURI());
 
@@ -62,6 +82,11 @@ public class ErrorController {
 
         ModelAndView response = new ModelAndView("error/500");
 
+        //+++++++ Interceptor ++++
+        Object handler = new Object();
+        myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
+
+
         if (authenticatedUserUtilities.isUserInRole("ADMIN")) {
             response.addObject("requestUrl", request.getRequestURI());
             response.addObject("message", ex.getMessage());
@@ -78,9 +103,6 @@ public class ErrorController {
 
         return response;
     }
-
-
-
 }
 
 // I added "throws exception to a controller method

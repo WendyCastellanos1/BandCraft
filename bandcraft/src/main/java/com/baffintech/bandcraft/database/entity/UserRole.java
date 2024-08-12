@@ -3,7 +3,9 @@ package com.baffintech.bandcraft.database.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -12,9 +14,9 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_roles", indexes = {
-        @Index(name = "FK_user_id_idx", columnList = "user_id")
-})
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "user_roles")
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

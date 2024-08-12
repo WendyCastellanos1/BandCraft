@@ -18,6 +18,9 @@ public class UserService {
     private UserDAO userDAO;
 
     @Autowired
+    private UserRoleService userRoleService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public User createUser(CreateAccountFormBean form) {
@@ -35,6 +38,10 @@ public class UserService {
 
         // save the user to the database
         userDAO.save(user);
+
+        // need to assign a User Role to the new User bc login info now saved and person can login to create a profile next; can't see Create Profile link unless "USER" in user_roles table
+        Boolean result = userRoleService.setNewUserRole(user.getId(), "USER");
+        log.debug("If true: " + result + "User: " + user.toString() + " has been given the fresh, new role of USER, which means person can now login and see a Create Profile link to become a member.");
 
         return user;
     }

@@ -50,7 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         boolean accountNonLocked = true;
 
         // Use the user object from the database to get the user roles
-        List<UserRole> userRoles = userRoleDAO.findByUserId(user.getId());
+        List<UserRole> userRoles = userRoleDAO.findByUser(user);
 
         // passing the user roles to create the granted authorities
         Collection<? extends GrantedAuthority> authorities = buildGrantAuthorities(userRoles);

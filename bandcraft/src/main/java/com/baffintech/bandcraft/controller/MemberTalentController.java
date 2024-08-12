@@ -1,5 +1,6 @@
 package com.baffintech.bandcraft.controller;
 
+import com.baffintech.bandcraft.config.MyInterceptor;
 import com.baffintech.bandcraft.database.dao.MemberDAO;
 import com.baffintech.bandcraft.database.dao.MemberTalentDAO;
 import com.baffintech.bandcraft.database.dao.TalentDAO;
@@ -15,6 +16,8 @@ import com.baffintech.bandcraft.security.AuthenticatedUserUtilities;
 import com.baffintech.bandcraft.service.MemberService;
 import com.baffintech.bandcraft.service.MemberTalentService;
 import com.baffintech.bandcraft.service.TalentService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,14 +52,29 @@ public class MemberTalentController {
 
     @Autowired
     private TalentService talentService;
+
     @Autowired
     private AuthenticatedUserUtilities authenticatedUserUtilities;
+
+    @Autowired
+    private MyInterceptor myInterceptor;
+
+    @Autowired
+    private HttpServletRequest httpServletRequest;
+
+    @Autowired
+    private HttpServletResponse httpServletResponse;
 
     // listens on url: localhost:8080/member-talent/list
     @GetMapping("/list")
     public ModelAndView findAll() {
 
         ModelAndView response = new ModelAndView("member-talent/list");
+
+        //+++++++ Interceptor ++++
+        Object handler = new Object();
+        myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
+
         List<MemberTalent> memberTalents = memberTalentDAO.findAll();
         response.addObject("memberTalentsKey", memberTalents);
 
@@ -70,6 +88,10 @@ public class MemberTalentController {
         ModelAndView response = new ModelAndView("member-talent/detail");
         log.debug("The user wants the member-talent with id:  " + id);
 
+        //+++++++ Interceptor ++++
+        Object handler = new Object();
+        myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
+
         MemberTalent memberTalent = memberTalentDAO.findById(id);
         response.addObject("memberTalentKey", memberTalent);
 
@@ -79,39 +101,49 @@ public class MemberTalentController {
     @GetMapping("/create")
     public ModelAndView create(@RequestParam(required=false) Integer memberId) {                                        // this method is setting up the view for rendering
 
-        if (memberId == null) {     //e.g. lost, weird navigation
-            Member member = new Member();
-            //shouldn't need this for a fresh create talent list (all talents should appear available for a new member)
-            member = memberDAO.findByUser(authenticatedUserUtilities.getCurrentUser());
+        ModelAndView response = new ModelAndView("member-talent/create");
 
-            ModelAndView response = new ModelAndView("member-talent/create");
+        //+++++++ Interceptor ++++
+        Object handler = new Object();
+        myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
 
-            // TODO determine if only fresh create goes through here, or ?
-            List<Talent> talents = talentDAO.findAll();
-            response.addObject("talentsKey", talents);
+        Member member = memberDAO.findByUser(authenticatedUserUtilities.getCurrentUser());
 
-            return response;
+//        Member member = memberDAO.findById(memberId);
+//        if (member == null) {
+//            member = memberDAO.findByUser(authenticatedUserUtilities.getCurrentUser());
+//        }
 
-        } else {
-            ModelAndView response = new ModelAndView("member-talent/create");
+        response.addObject("memberFirstNameKey", member.getFirstName());
+        response.addObject("memberIdKey", member.getId());
 
-            response.addObject("memberIdKey", memberId);
+        List<Talent> talents = talentDAO.findAll();
+        response.addObject("talentsKey", talents);
 
-           // we have memberId, so we can "mark" each "custom talent record" with a special temp attribute, to show on the form to indicate if the talent is actionable by this member
-            List<TalentWithMemberStatusDTO> talents = memberTalentService.buildCustomTalentListForFormByMember(memberId);
-            response.addObject("talentsKey", talents);
+        response.addObject("memberIdKey", member.getId());
+        response.addObject("memberFirstNameKey", member.getFirstName());
 
-            return response;
-        }
+       // we have memberId, so we can "mark" each "custom talent record" with a special temp attribute, to show on the form to indicate if the talent is actionable by this member
+        List<TalentWithMemberStatusDTO> talentsDTO = memberTalentService.buildCustomTalentListForFormByMember(memberId);
+        response.addObject("talentsKey", talentsDTO);
+
+        return response;
+
     }
 
     @GetMapping("/createSubmit")
-    public ModelAndView createSubmit(@RequestParam (required=false) String memberId, @RequestParam (required=false) String talentId) {
+    public ModelAndView createSubmit(@RequestParam (required=false) Integer memberId, @RequestParam (required=false) Integer talentId) {
 
         ModelAndView response = new ModelAndView();
-        log.debug("Member id: " + memberId + "   TalentId: " + talentId);                                               // prints the form data to the console using the CreateMemberFormBean form
 
-        MemberTalent memberTalent = memberTalentService.createMemberTalent(Integer.valueOf(memberId), Integer.valueOf(talentId));                         // saves the memberTalent to the db
+        //+++++++ Interceptor ++++
+        Object handler = new Object();
+        myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
+
+        //log.debug("Member id: " + memberId + "   TalentId: " + talentId);                                               // prints the form data to the console using the CreateMemberFormBean form
+
+        //MemberTalent memberTalent = memberTalentService.createMemberTalent(Integer.valueOf(memberId), Integer.valueOf(talentId));                         // saves the memberTalent to the db
+        MemberTalent memberTalent = memberTalentService.createMemberTalent(memberId, talentId);                         // saves the memberTalent to the db
 
         response.setViewName("redirect:/member-talent/create?memberId=" + memberId);                                    // this is a URL, NOT a view name
         //response.setViewName("redirect:/member-talent/create");
@@ -125,6 +157,11 @@ public class MemberTalentController {
 //    public ModelAndView search(@RequestParam(required = false) String search) {
 //
 //        ModelAndView response = new ModelAndView("member-talent/search");
+
+//      +++++++ Interceptor ++++
+//      Object handler = new Object();
+//      myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
+
 //        log.debug("The user searched for the term: " + search);
 //
 //        // Add the user input back to the model so that we can display the search term in the input field

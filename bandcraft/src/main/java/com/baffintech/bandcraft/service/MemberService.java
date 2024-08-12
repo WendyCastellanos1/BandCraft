@@ -1,8 +1,10 @@
 package com.baffintech.bandcraft.service;
 
+import com.baffintech.bandcraft.database.dao.UserRoleDAO;
 import com.baffintech.bandcraft.database.entity.Member;
 import com.baffintech.bandcraft.database.dao.MemberDAO;
 import com.baffintech.bandcraft.database.entity.User;
+import com.baffintech.bandcraft.database.entity.UserRole;
 import com.baffintech.bandcraft.form.CreateMemberFormBean;
 
 import com.baffintech.bandcraft.security.AuthenticatedUserUtilities;
@@ -22,15 +24,21 @@ public class MemberService {
     private MemberDAO memberDAO;
 
     @Autowired
+    private UserRoleDAO userRoleDAO;
+
+    @Autowired
+    private UserRoleService userRoleService;
+
+    @Autowired
     private AuthenticatedUserUtilities authenticatedUserUtilities;
 
     // method to create or edit a member in the db, return an updated object
     public Member createMember(CreateMemberFormBean form) {
 
         log.debug(form.toString());                                                     // write form data to the console
+        // TODO make sure the member is not already in the table!
 
-        User user = authenticatedUserUtilities.getCurrentUser();
-
+        User user = authenticatedUserUtilities.getCurrentUser();                        //TODO if the admin is editing someone else's record....
         Member member = memberDAO.findById(form.getId());
 
         Boolean isCreate = false;
@@ -40,7 +48,7 @@ public class MemberService {
             member.setUser(user);                                                       // for create, the talented member is the one filling out the form
         }
 
-        // get data from the form on the web page
+        // get data from the form on the web page to load up a member instance
         member.setFirstName(form.getFirstName());
         member.setLastName(form.getLastName());
         member.setNickname(form.getNickname());
@@ -66,13 +74,17 @@ public class MemberService {
         log.debug(user.toString());
         member.setLastUpdatedId(user.getId());                                                         // current person (user) creating or editing this member record is *logged-in user*
 
-        // when we save to the db, it will auto-increment to give us a new id
-        // the new Id is available in the return from the save method.
-        // basically returns the same object ...after it's been inserted into the db
         member = memberDAO.save(member); //want this bc has next Id number in it
-//        if (authenticatedUserUtilities.isUserInRole("USER")) {
-//            user.setUserRoles(Set<UserRole> "MEMBER");
-//        }
+
+//        // set new role (works, but not want I really want)
+//        Boolean result = userRoleService.setNewUserRole(user.getId(), "MEMBER");
+//
+//        // delete USER role to ensure MEMBER authority in the app TODO does NOT work (this query works in MYSQL workbench, though)
+//        Integer userId = user.getId();  //redundant , but testing something...
+//        userRoleDAO.deleteRoleByUserId(userId, "USER");
+
+
+
         log.debug("member created after the edit, before returning to the createSubmit:" + member.toString());
         return member;
     }

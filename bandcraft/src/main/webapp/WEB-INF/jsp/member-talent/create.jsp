@@ -24,7 +24,7 @@
             <div class="col-12">
                 <form action="../member-talent/createSubmit" method="get">
                     <input type="hidden" name="id" value="${memberIdKey}">  <!-- the member id  -->
-                    <h4 style="text-align: center; color:saddlebrown" >Member Id ${memberIdKey}:  Select the talents you are willing to use in the band</h4>
+                    <h4 style="text-align: center; color:saddlebrown" >${memberFirstNameKey}, select the talents you are willing to use in the band.</h4>
                     <h5 class="text-center" style="color:lightseagreen;">${talentsKey.size()} result(s)</h5>
                 </form>
             </div>

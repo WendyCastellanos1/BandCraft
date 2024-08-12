@@ -24,10 +24,8 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid" style="background-color:lime; font-weight: bold" >
-
-       <a class="navbar-brand" href="#" style="background-color: saddlebrown; color: yellow">Band Craft</a>
-
+    <div class="container-fluid" style="background-color:mediumseagreen; font-weight: bold" >
+       <a class="navbar-brand" href="#" style="background-color:darkturquoise; color:lightgreen;">Band Craft</a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
              <span class="navbar-toggler-icon"></span>
          </button>
@@ -38,33 +36,43 @@
                      <a class="nav-link active" aria-current="page" href="/">Home</a>
                  </li>
 
-
                 <sec:authorize access="!isAuthenticated()">
                     <li class="nav-item">
                         <a class="nav-link" href="/account/create-account">Create Account</a>
                     </li>
+                </sec:authorize>
+                 <sec:authorize access="!isAuthenticated()">
                     <li class="nav-item">
                         <a class="nav-link" href="/account/login">Login</a>
                     </li>
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
-
-
-                    <sec:authorize access="hasAnyAuthority('USER')">
+<%--                    <sec:authorize access="hasAnyAuthority('USER')">--%>
                         <li class="nav-item">
                             <a class="nav-link" href="/member/create">Create Profile</a>
                         </li>
-                    </sec:authorize>
-
-<%--                    <sec:authorize access="hasAnyAuthority('MEMBER')">--%>
-<%--                        <li class="nav-item">--%>
-<%--                            <a class="nav-link" href="/member/edit">Edit Profile</a>--%>
-<%--                        </li>--%>
 <%--                    </sec:authorize>--%>
 
-                    <sec:authorize access="hasAnyAuthority('ADMIN')">
+<%--                    <sec:authorize access="hasAnyAuthority('MEMBER')">--%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/member/edit?=${memberIdKey}">Edit Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/member-talent/create?memberId=${memberIdKey}">Add Talents</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/member/${memberIdKey}">Profile Summary</a>
+                        </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="/account/logout">Logout</a>
+                         </li>
 
+                         <li class="nav-item">
+                            <span class="nav-link"><sec:authentication property="name"/></span>
+                         </li>
+<%--                    </sec:authorize>--%>
+                    <sec:authorize access="hasAnyAuthority('ADMIN')">
                         <li class="nav-item">
                             <a class="nav-link" href="/member/search">Member Search</a>
                         </li>
@@ -80,28 +88,19 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/band/create">Create Band</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/band/list">Band List</a>
-                        </li>
+
                         <!-- This will be added with event  module
                         <li class="nav-item">
                             <a class="nav-link" href="/event/create">Create Event</a>
-                        </li>  -->
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/band/list">Band List</a>
+                        </li>
+                        -->
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/dashboard">Admin Dashboard</a>
                         </li>
-
-
                     </sec:authorize>
-
-                    <li class="nav-item">
-                        <span class="nav-link"><sec:authentication property="name"/></span>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/account/logout">Logout</a>
-                    </li>
-
                 </sec:authorize>
 
             </ul>
