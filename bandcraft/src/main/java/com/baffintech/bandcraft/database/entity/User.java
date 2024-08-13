@@ -45,6 +45,7 @@ public class User {
     @Column(name = "date_updated")
     private Instant dateUpdated;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "last_updated_id")
     private User lastUpdatedId;

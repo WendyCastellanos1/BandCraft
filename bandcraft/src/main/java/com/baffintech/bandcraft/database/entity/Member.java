@@ -26,6 +26,7 @@ public class Member {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

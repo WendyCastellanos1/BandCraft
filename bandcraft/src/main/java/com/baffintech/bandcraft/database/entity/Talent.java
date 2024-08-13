@@ -55,6 +55,7 @@ public class Talent {
     @Column(name = "last_updated_id")
     private Integer lastUpdatedId;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "talent")
     private Set<MemberTalent> memberTalents = new LinkedHashSet<>();
 

@@ -19,7 +19,6 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(name = "member_talents")
-
 public class MemberTalent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +28,7 @@ public class MemberTalent {
    //private Integer memberId;
 
     @NotNull
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "member_id", nullable = false, referencedColumnName = "id")
@@ -37,6 +37,7 @@ public class MemberTalent {
      //private Integer talentId;
 
     @NotNull
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "talent_id", nullable = false)

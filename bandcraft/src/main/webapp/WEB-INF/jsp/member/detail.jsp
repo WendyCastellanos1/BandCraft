@@ -79,7 +79,7 @@
                                         <td style="color:seagreen"><b>Yes</b></td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td style="color:red">No</td>
+                                        <td style="color:red"><b>No</b></td>
                                     </c:otherwise>
                                 </c:choose>
                         </tr>
@@ -90,13 +90,13 @@
                                     <td style="color:seagreen"><b>Yes</b></td>
                                 </c:when>
                                 <c:otherwise>
-                                    <td style="color:red">No</td>
+                                    <td style="color:red"><b>No</b></td>
                                 </c:otherwise>
                             </c:choose>
                         </tr>
 
-                        <tr><td><b>Bio</b></td>                  <td>${memberKey.bio}</td></tr>
-                        <tr><td><b>Social Media Url</b></td>     <td>${memberKey.socialMediaUrl}</td></tr>
+                        <tr><td><b>Bio</b></td>                  <td><i>${memberKey.bio}</i></td></tr>
+                        <tr><td><b>Social Media Url</b></td>     <td><a href="${memberKey.socialMediaUrl}">${memberKey.socialMediaUrl}</a></td></tr>
                         <tr><td><b>Date Created</b></td>         <td>${memberKey.dateCreated}</td></tr>
                         <tr><td><b>Date Updated</b></td>         <td>${memberKey.dateUpdated}</td></tr>
                         <tr><td><b>Last Updated Id</b></td>       <td>${memberKey.lastUpdatedId}</td></tr>

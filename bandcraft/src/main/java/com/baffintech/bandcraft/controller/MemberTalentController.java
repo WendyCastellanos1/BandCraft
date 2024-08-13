@@ -141,14 +141,11 @@ public class MemberTalentController {
 
         MemberTalent memberTalent = memberTalentService.createMemberTalent(memberId, talentId);                         // saves the memberTalent to the db
 
-        response.setViewName("redirect:/member-talent/create");                                    // this is a URL, NOT a view name
+        response.setViewName("redirect:/member-talent/create?memberId=" + memberId);                                    // this is a URL, NOT a view name
 
         return response;
     }
 }
-
-
-
 
 
     // listens on url: localhost:8080/member-talent/search
