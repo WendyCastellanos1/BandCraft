@@ -58,6 +58,9 @@ import java.util.Map;
         @Autowired
         private HttpServletResponse httpServletResponse;
 
+        @Autowired
+        private HttpSession session;
+
         // listens on url: localhost:8080/member/list
         @GetMapping("/list")
         public ModelAndView findAll() {
@@ -161,8 +164,14 @@ import java.util.Map;
 
                 // re-login  ONLY if CREATE new member
                 if (isCreate) {
-                    //authenticatedUserUtilities.manualAuthentication(session, form.getUsername(), form.getPassword());
-                    response.setViewName("redirect:../account/logout");           //alternative to "above line"
+
+                   response.setViewName("redirect:../account/logout");           //alternative to "above line"
+
+                    // prefer this instead
+                        // User user = authenticatedUserUtilities.getCurrentUser();
+                        // authenticatedUserUtilities.manualAuthentication(session, user.getUsername(), user.getPassword());
+                        // response.setViewName("redirect:/member/" + member.getId());
+
                 } else {
                     // stay logged in, because EDIT, now ADD TALENTS
                         // BAD: response.setViewName("member-talent/create");
