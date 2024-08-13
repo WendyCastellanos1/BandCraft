@@ -43,6 +43,7 @@ public class MemberService {
 
     @Autowired
     private HttpSession httpSession;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -88,9 +89,6 @@ public class MemberService {
         member.setLastUpdatedId(user.getId());                                                         // current person (user) creating or editing this member record is *logged-in user*
 
         member = memberDAO.save(member); //want this bc has next Id number in it
-
-//        log.debug("before manual authentication, username: " + user.getUsername() + " password: " + user.getPassword());     //TODO log out before doing a manual authentication?*/
-//        authenticatedUserUtilities.manualAuthentication(httpSession, user.getUsername(), user.getPassword());
 
         return member;
     }

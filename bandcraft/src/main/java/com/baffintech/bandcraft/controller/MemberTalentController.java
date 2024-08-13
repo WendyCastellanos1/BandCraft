@@ -107,12 +107,10 @@ public class MemberTalentController {
         Object handler = new Object();
         myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
 
-        Member member = memberDAO.findByUser(authenticatedUserUtilities.getCurrentUser());
-
-//        Member member = memberDAO.findById(memberId);
-//        if (member == null) {
-//            member = memberDAO.findByUser(authenticatedUserUtilities.getCurrentUser());
-//        }
+        Member member = memberDAO.findById(memberId);
+        if (member == null) {
+            member = memberDAO.findByUser(authenticatedUserUtilities.getCurrentUser());
+        }
 
         response.addObject("memberFirstNameKey", member.getFirstName());
         response.addObject("memberIdKey", member.getId());
@@ -127,8 +125,9 @@ public class MemberTalentController {
         List<TalentWithMemberStatusDTO> talentsDTO = memberTalentService.buildCustomTalentListForFormByMember(memberId);
         response.addObject("talentsKey", talentsDTO);
 
-        return response;
+       // response.setViewName("redirect:/member-talent/create?memberId=");
 
+        return response;
     }
 
     @GetMapping("/createSubmit")
@@ -140,17 +139,17 @@ public class MemberTalentController {
         Object handler = new Object();
         myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
 
-        //log.debug("Member id: " + memberId + "   TalentId: " + talentId);                                               // prints the form data to the console using the CreateMemberFormBean form
-
-        //MemberTalent memberTalent = memberTalentService.createMemberTalent(Integer.valueOf(memberId), Integer.valueOf(talentId));                         // saves the memberTalent to the db
         MemberTalent memberTalent = memberTalentService.createMemberTalent(memberId, talentId);                         // saves the memberTalent to the db
 
-        response.setViewName("redirect:/member-talent/create?memberId=" + memberId);                                    // this is a URL, NOT a view name
-        //response.setViewName("redirect:/member-talent/create");
+        response.setViewName("redirect:/member-talent/create");                                    // this is a URL, NOT a view name
 
         return response;
     }
 }
+
+
+
+
 
     // listens on url: localhost:8080/member-talent/search
 //    @GetMapping("/search")

@@ -16,6 +16,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
@@ -33,8 +34,10 @@ public class LoginController {
     private AuthenticatedUserUtilities authenticatedUserUtilities;
 
     @GetMapping("/login")           // just displaying our login page, could just do the 'return a String' approach here
-    public ModelAndView doLogin() {
+    public ModelAndView doLogin(@RequestParam(required = false) String message) {
         ModelAndView response = new ModelAndView("auth/login");
+
+        response.addObject("messageKey", message);
 
         return response;
     }

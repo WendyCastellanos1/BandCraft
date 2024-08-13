@@ -9,13 +9,16 @@ import com.baffintech.bandcraft.database.entity.*;
 import com.baffintech.bandcraft.form.CreateBandFormBean;
 import com.baffintech.bandcraft.form.CreateMemberFormBean;
 import com.baffintech.bandcraft.security.AuthenticatedUserUtilities;
+import com.baffintech.bandcraft.security.UserDetailsServiceImpl;
 import com.baffintech.bandcraft.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -130,31 +133,42 @@ import java.util.Map;
             Object handler = new Object();
             myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
 
-            log.debug(form.toString());                                                                         // prints the form data to the console using the CreateMemberFormBean form
+            log.debug(form.toString());
 
-            // TODO make sure we don't add the same user twice as user or member or in duplicate user roles
+            // capture if CREATE or EDIT on the way in
+            boolean isCreate = false;// prints the form data to the console using the CreateMemberFormBean form
+            if (form.getId() == null) {
+                isCreate = true;
+            }
+
+            // TODO make sure there's no way to add the same user twice as user or member or in duplicate user roles
             if (bindingResult.hasErrors()) {
                 for (ObjectError error : bindingResult.getAllErrors()) {
                     log.debug("Validation error : " + ((FieldError) error).getField() + " = " + error.getDefaultMessage());
                 }
                 response.addObject("bindingResult", bindingResult);                     // error has occurred;, use on jsp page to show user the errors
                 response.setViewName("member/create");
-                response.addObject("form", form);
-                String generationOptions = memberService.generationOptionsBuild("u");
+                String generationOptions = memberService.generationOptionsBuild(form.getGeneration());
                 response.addObject("generationOptionsKey", generationOptions);
+
+                response.addObject("form", form);
 
                 return response;
 
             } else {
+                // save the form data to the database
+                Member member = memberService.createMember(form);
 
-                Member member = memberService.createMember(form);                                           // saves the member to the db
-                if (member == null) {
-                    response.setViewName("member/create");
+                // re-login  ONLY if CREATE new member
+                if (isCreate) {
+                    //authenticatedUserUtilities.manualAuthentication(session, form.getUsername(), form.getPassword());
+                    response.setViewName("redirect:../account/logout");           //alternative to "above line"
                 } else {
-                    //response.setViewName("redirect:../member/edit?id=" + member.getId());                          // this is a URL, NOT a view name
-                    response.setViewName("redirect:../account/logout");
-                    //response.setViewName("redirect:../account/login");
-
+                    // stay logged in, because EDIT, now ADD TALENTS
+                        // BAD: response.setViewName("member-talent/create");
+                        // BAD -displays w/o mappings b/c bad url: response.setViewName("redirect:/member-talent/create?memberId=");
+                        // BAD: -displays w/o mappings b/c bad url: response.setViewName("redirect:/member-talent/create?");
+                    response.setViewName("redirect:/member/" + member.getId());
                 }
                 return response;
             }
@@ -213,9 +227,6 @@ import java.util.Map;
                 form.setLastUpdatedId(member.getLastUpdatedId());
 
                 response.addObject("form", form);
-
-                //response.setViewName("redirect:/member/create?id=" + member.getId());
-                // response.setViewName("member-talent/create?memberId=" + member.getId());
             }
             return response;
         }

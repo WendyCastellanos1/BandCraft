@@ -26,6 +26,10 @@
             <div class="col-12">
                 <form action="/account/loginProcessingURL" method="post">
 
+                    <!-- add an optional message that won't show unless it's passed in on the url  -->
+                    <h3 class="text-center" style="color:mediumpurple">${messageKey}</h3>
+                    <br>
+
                     <!-- email input -->
                     <div class="row align-items-center justify-content-center">
                         <div class="col-2">

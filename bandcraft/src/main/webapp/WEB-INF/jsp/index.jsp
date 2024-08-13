@@ -14,7 +14,12 @@
 
 <br><br><br>
 
-<h4 class="text-center">Connecting the talent to form bands</h4>
+<!-- add an optional message that won't show unless it's passed in  -->
+<h4 class="text-center" style="color:mediumpurple">${messageKey}</h4>
+
+<br>
+
+<h2 class="text-center">Connecting talented people to form bands</h2>
 
 
 <jsp:include page="./include/footer.jsp"/>
