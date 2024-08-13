@@ -8,8 +8,11 @@ import com.baffintech.bandcraft.database.entity.UserRole;
 import com.baffintech.bandcraft.form.CreateMemberFormBean;
 
 import com.baffintech.bandcraft.security.AuthenticatedUserUtilities;
+import com.baffintech.bandcraft.security.UserDetailsServiceImpl;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -27,10 +30,21 @@ public class MemberService {
     private UserRoleDAO userRoleDAO;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private UserRoleService userRoleService;
 
     @Autowired
     private AuthenticatedUserUtilities authenticatedUserUtilities;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Autowired
+    private HttpSession httpSession;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // method to create or edit a member in the db, return an updated object
     public Member createMember(CreateMemberFormBean form) {
@@ -71,21 +85,13 @@ public class MemberService {
             member.setDateUpdated(Instant.now());                                                     // set the *updated* timestamp;
         }
 
-        log.debug(user.toString());
         member.setLastUpdatedId(user.getId());                                                         // current person (user) creating or editing this member record is *logged-in user*
 
         member = memberDAO.save(member); //want this bc has next Id number in it
 
-//        // set new role (works, but not want I really want)
-//        Boolean result = userRoleService.setNewUserRole(user.getId(), "MEMBER");
-//
-//        // delete USER role to ensure MEMBER authority in the app TODO does NOT work (this query works in MYSQL workbench, though)
-//        Integer userId = user.getId();  //redundant , but testing something...
-//        userRoleDAO.deleteRoleByUserId(userId, "USER");
+//        log.debug("before manual authentication, username: " + user.getUsername() + " password: " + user.getPassword());     //TODO log out before doing a manual authentication?*/
+//        authenticatedUserUtilities.manualAuthentication(httpSession, user.getUsername(), user.getPassword());
 
-
-
-        log.debug("member created after the edit, before returning to the createSubmit:" + member.toString());
         return member;
     }
 
@@ -141,41 +147,3 @@ public class MemberService {
         return optionList;
     }
 }
-//    public genderRadioGroupBuild(String gender) {
-//
-//        String[] genderChunks= new String[3];
-//        String genderRadioGroup = "";
-//
-//        if (gender.equals("m")) {
-//            genderChunks[0] = "<input class=         \"form-check-input\"";
-//                                    type=   "        \"radio\"    "
-//                                    id=     "        \"maleId\"  "
-//                                    value=  "        \"m\"       "
-//                                    name=   "        \"gender\"  "
-//                                + "checked>";
-//
-//        } else {
-//            genderChunks[0] = "as";
-//        }
-//
-//        if (gender.equals("f")) {
-//            genderChunks[1] = "as";
-//        } else {
-//            genderChunks[1] = "as";
-//        }
-//
-//        if (gender.equals("o")) {
-//            genderChunks[2] = "asdf";
-//        } else {
-//            genderChunks[2] = "asdf";
-//        }
-//
-//        // loop throught the HTML chunks to form code for the gender radio group, with correct choice checked on rendering
-//        for (int k=0; k < genderChunks.length; k++) {
-//            genderRadioGroup = genderRadioGroup + genderChunks[k] + "/n";
-//        }
-//
-//        return genderRadioGroup;
-//    }
-//
-

@@ -19,7 +19,7 @@ import java.util.Set;
 public class UserRoleService {
 
     @Autowired
-    MemberDAO memberDAO;
+    private MemberDAO memberDAO;
 
     @Autowired
     private UserRoleDAO userRoleDAO;
@@ -31,24 +31,6 @@ public class UserRoleService {
     //       anyone is a "USER" once a login is made, but info profile not completed
     //       anyone who completes and saves the info profile is a "MEMBER"
     //       only an "ADMIN" or DBA can make a "USER" or "MEMBER" into an "ADMIN"
-
-    public Boolean setNewUserRole(Integer userId, String newRoleName) {
-
-        // we are probably here because a person created a login; is now a user in the users table; needs to be have role "USER" in the user roles table
-        // we could also be here because a person is getting an ADDITIONAL role. this creates a new user role association, doesn't modify an existing user role in the db
-        Boolean result = false;
-
-        User user = userDAO.findById(userId);
-        if (user != null) {
-            UserRole userRole = new UserRole();
-            userRole.setUser(user);
-            userRole.setRoleName(newRoleName);
-            userRole.setCreateDate(Instant.now());
-            userRoleDAO.save(userRole);
-            result = true;
-        }
-        return result;
-    }
 
 
     public UserRole modifyRole(User user, String oldRole, String newRole) {
@@ -63,14 +45,32 @@ public class UserRoleService {
                 }
                 userRole = userRoleDAO.save(userRole);
 
-                return userRole;
+                log.debug("Final userRole here is: " + userRole);
+
+                return userRole;    // can test on other side
             }
         }
         return null;        // we didn't get any userRoles, person maybe shouldn't be here, check for null in calling statement
     }
+
+
+    public Boolean setNewUserRole(User user, String newRoleName) {
+
+        // we are probably here because a person created a login; is now a user in the users table; needs to be have role "USER" in the user roles table
+        // we could also be here because a person is getting an ADDITIONAL role. this creates a new user role association, doesn't modify an existing user role in the db
+        Boolean result = false;
+
+        if (user != null) {
+            UserRole userRole = new UserRole();
+            userRole.setUser(user);
+            userRole.setRoleName(newRoleName);
+            userRole.setCreateDate(Instant.now());
+            userRoleDAO.save(userRole);
+            result = true;
+        }
+        return result;
+    }
 }
-
-
 
 
 

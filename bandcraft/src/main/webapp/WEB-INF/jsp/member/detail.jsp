@@ -38,7 +38,7 @@
                         <tr><td><b>Last Updated Id</b></td>       <td>${memberKey.lastUpdatedId}</td></tr>
 
                         <!-- list of talents for this member -->
-                        <tr style="color:seagreen"><td ><b>Member Talents:  </b></td>  <td>${memberTalentsKey.size()} result(s)</td></tr>
+                        <tr style="color:seagreen"><td><b>Member Talents:  </b></td>  <td><b>${memberTalentsKey.size()} result(s)</b></td></tr>
                         <tr>
                             <section>
                                 <div class="container">
@@ -47,21 +47,21 @@
                                             <table class="table">
                                                 <tr>
                                                     <th><b>Id</b></th>
-                                                    <!--       <th><b>Talent Id</b></th>  -->
-                                                    <!--        <th><b>Talent Name</b></th>   -->
-                                                    <th><b>Date Created</b></th>
-                                                    <th><b>Date Updated</b></th>
-                                                    <th><b>Last Updated Id</b></th>
+                                                    <th><b>Talent Name</b></th>
+                                                    <th><b>Talent Description</b></th>
+<%--                                                    <th><b>Date Created</b></th>--%>
+<%--                                                    <th><b>Date Updated</b></th>--%>
+<%--                                                    <th><b>Last Updated Id</b></th>--%>
                                                 </tr>
 
-                                                <c:forEach items="${memberTalentsKey}" var="memberTalent">
+                                                <c:forEach items="${memberTalentsKey}" var="talent">
                                                     <tr>
-                                                        <td>${memberTalent.id}</td>
-<%--                                                 <!--   <td>${memberTalent.talentId}</td>   -->--%>
-<%--                                                 <!--        <td>${memberTalent.talentName}</td>    -->--%>
-                                                        <td>${memberTalent.dateCreated}</td>
-                                                        <td>${memberTalent.dateUpdated}</td>
-                                                        <td>${memberTalent.lastUpdatedId}</td>
+                                                        <td>${talent.id}</td>
+                                                        <td>${talent.name}</td>
+                                                        <td>${talent.description}</td>
+<%--                                                        <td>${talent.dateCreated}</td>--%>
+<%--                                                        <td>${talent.dateUpdated}</td>--%>
+<%--                                                        <td>${talent.lastUpdatedId}</td>--%>
                                                     </tr>
                                                 </c:forEach>
 

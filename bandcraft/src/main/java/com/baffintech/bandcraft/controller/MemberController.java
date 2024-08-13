@@ -3,11 +3,9 @@ package com.baffintech.bandcraft.controller;
 import com.baffintech.bandcraft.config.MyInterceptor;
 import com.baffintech.bandcraft.database.dao.MemberDAO;
 import com.baffintech.bandcraft.database.dao.MemberTalentDAO;
+import com.baffintech.bandcraft.database.dao.TalentDAO;
 import com.baffintech.bandcraft.database.dao.UserDAO;
-import com.baffintech.bandcraft.database.entity.Band;
-import com.baffintech.bandcraft.database.entity.Member;
-import com.baffintech.bandcraft.database.entity.MemberTalent;
-import com.baffintech.bandcraft.database.entity.User;
+import com.baffintech.bandcraft.database.entity.*;
 import com.baffintech.bandcraft.form.CreateBandFormBean;
 import com.baffintech.bandcraft.form.CreateMemberFormBean;
 import com.baffintech.bandcraft.security.AuthenticatedUserUtilities;
@@ -26,8 +24,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
-    @Slf4j
+@Slf4j
     @Controller
     @RequestMapping("/member")    // part of URL before the jsp page
     public class MemberController {
@@ -96,11 +95,12 @@ import java.util.List;
                 member = memberDAO.findById(id);
             }
 
-            response.addObject("memberIdKey", member.getId());
             response.addObject("memberKey", member);
 
-            List<MemberTalent> memberTalents = memberTalentDAO.findByMember(member);
-            response.addObject("memberTalentsKey", memberTalents);
+            Integer memberId = member.getId();      // redundant, but testing something
+
+            List<Map<String,Object>> talents = memberTalentDAO.findTalentsInMemberTalentsByMemberId(memberId);
+            response.addObject("memberTalentsKey", talents);
 
             return response;
         }
@@ -140,15 +140,22 @@ import java.util.List;
                 response.addObject("bindingResult", bindingResult);                     // error has occurred;, use on jsp page to show user the errors
                 response.setViewName("member/create");
                 response.addObject("form", form);
+                String generationOptions = memberService.generationOptionsBuild("u");
+                response.addObject("generationOptionsKey", generationOptions);
 
                 return response;
 
             } else {
 
                 Member member = memberService.createMember(form);                                           // saves the member to the db
+                if (member == null) {
+                    response.setViewName("member/create");
+                } else {
+                    //response.setViewName("redirect:../member/edit?id=" + member.getId());                          // this is a URL, NOT a view name
+                    response.setViewName("redirect:../account/logout");
+                    //response.setViewName("redirect:../account/login");
 
-                response.setViewName("redirect:../member/edit?id=" + member.getId());                          // this is a URL, NOT a view name
-
+                }
                 return response;
             }
         }
@@ -182,6 +189,7 @@ import java.util.List;
                 form.setNickname(member.getNickname());
 
                 String generationOptions = memberService.generationOptionsBuild(member.getGeneration());    // sub in the options list, "selected" has been inserted in the correct option
+                response.addObject("generationOptionsKey", generationOptions);
 
                 form.setGender(member.getGender());
                 form.setGenderComment(member.getGenderComment());
@@ -205,37 +213,33 @@ import java.util.List;
                 form.setLastUpdatedId(member.getLastUpdatedId());
 
                 response.addObject("form", form);
-                response.addObject("generationOptionsKey", generationOptions);
 
-               // response.setViewName("redirect:/member/create?id=" + member.getId());
-                // TODO wishful thinking: response.setViewName("member-talent/create?memberId=" + member.getId());
+                //response.setViewName("redirect:/member/create?id=" + member.getId());
+                // response.setViewName("member-talent/create?memberId=" + member.getId());
             }
             return response;
         }
+
+        // listens on url: localhost:8080/member/search
+        @GetMapping("/search")
+        public ModelAndView search(@RequestParam(required = false) String search) {
+
+            ModelAndView response = new ModelAndView("member/search");
+
+            //+++++++ Interceptor ++++
+            Object handler = new Object();
+            myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
+
+            log.debug("The user searched for the term: " + search);
+
+            // Add the user input back to the model so that we can display the search term in the input field
+            response.addObject("searchKey", search);
+
+            List<Member> members = memberDAO.findByFirstNameOrLastNameOrNickname(search);
+            response.addObject("membersKey", members);
+
+            return response;
+        }
     }
-
-
-
-
-//            // listens on url: localhost:8080/talent/search
-//            @GetMapping("/search")
-//            public ModelAndView search (@RequestParam (required = false) String search) {
-//
-//                ModelAndView response = new ModelAndView("member/search");
-//
-//               //+++++++ Interceptor ++++
-//                Object handler = new Object();
-//                myInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, response);
-
-//                log.debug("The user searched for the term: " + search);
-//
-//                // Add the user input back to the model so that we can display the search term in the input field
-//                response.addObject("searchKey", search);
-//
-//                List<Member> members = memberDAO.findByFirstName(search);
-//                response.addObject("membersKey", members);
-//
-//                return response;
-//            }
 
 

@@ -32,6 +32,10 @@
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+<%--                 <sec:authorize access="!hasAnyAuthority('IS_AUTHENTICATED_REMEMBERED', 'IS_AUTHENTICATED_ANONYMOUSLY', 'IS_AUTHENTICATED_FULLY')">--%>
+<%--                     <a href="/auth/login" >gives linked text on the NavBar, research the statuses</a>--%>
+<%--                 </sec:authorize>--%>
+
                  <li class="nav-item">
                      <a class="nav-link active" aria-current="page" href="/">Home</a>
                  </li>
@@ -48,13 +52,13 @@
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
-<%--                    <sec:authorize access="hasAnyAuthority('USER')">--%>
+                    <sec:authorize access="hasAnyAuthority('USER')">
                         <li class="nav-item">
                             <a class="nav-link" href="/member/create">Create Profile</a>
                         </li>
-<%--                    </sec:authorize>--%>
+                    </sec:authorize>
 
-<%--                    <sec:authorize access="hasAnyAuthority('MEMBER')">--%>
+                    <sec:authorize access="hasAnyAuthority('MEMBER')">
                         <li class="nav-item">
                             <a class="nav-link" href="/member/edit?=${memberIdKey}">Edit Profile</a>
                         </li>
@@ -64,6 +68,8 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/member/${memberIdKey}">Profile Summary</a>
                         </li>
+                    </sec:authorize>
+
                          <li class="nav-item">
                              <a class="nav-link" href="/account/logout">Logout</a>
                          </li>
@@ -71,7 +77,7 @@
                          <li class="nav-item">
                             <span class="nav-link"><sec:authentication property="name"/></span>
                          </li>
-<%--                    </sec:authorize>--%>
+
                     <sec:authorize access="hasAnyAuthority('ADMIN')">
                         <li class="nav-item">
                             <a class="nav-link" href="/member/search">Member Search</a>
